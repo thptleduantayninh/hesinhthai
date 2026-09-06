@@ -1,0 +1,1901 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trường THPT Lê Duẩn - Hệ sinh thái số</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    font-family:"Segoe UI",Arial,sans-serif;
+    background:#020711;
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body{
+    background:
+        radial-gradient(circle at 50% 42%,rgba(0,132,255,.16),transparent 25%),
+        radial-gradient(circle at 15% 80%,rgba(88,0,255,.10),transparent 25%),
+        radial-gradient(circle at 85% 20%,rgba(0,225,255,.08),transparent 25%),
+        #020711;
+}
+
+#stars{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.4;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:.15;transform:scale(.7)}
+    50%{opacity:.9;transform:scale(1.5)}
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:72px;
+    z-index:500;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 32px;
+    border-bottom:1px solid rgba(81,205,255,.18);
+    background:rgba(2,8,20,.72);
+    backdrop-filter:blur(18px);
+    box-shadow:0 5px 30px rgba(0,0,0,.3);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.brand-logo{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:900;
+    color:#fff;
+    background:
+        radial-gradient(circle,#2edcff 0%,#087bd7 45%,#03142d 75%);
+    border:1px solid rgba(108,226,255,.75);
+    box-shadow:
+        0 0 15px rgba(0,205,255,.55),
+        inset 0 0 15px rgba(255,255,255,.15);
+}
+
+.brand-title{
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.brand-sub{
+    font-size:11px;
+    color:#65dfff;
+    letter-spacing:2px;
+    margin-top:2px;
+}
+
+.status{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    color:#80dfff;
+}
+
+.status-dot{
+    width:8px;
+    height:8px;
+    background:#35ffb0;
+    border-radius:50%;
+    box-shadow:0 0 12px #35ffb0;
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    50%{transform:scale(1.5);opacity:.55}
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    padding-top:100px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.hero-title{
+    text-align:center;
+    margin-top:15px;
+    z-index:10;
+}
+
+.hero-title .small{
+    color:#5cdcff;
+    font-size:13px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+}
+
+.hero-title h1{
+    font-size:clamp(30px,5vw,58px);
+    font-weight:900;
+    letter-spacing:2px;
+    background:linear-gradient(
+        90deg,
+        #fff,
+        #62e4ff,
+        #fff,
+        #8c83ff
+    );
+    background-size:300%;
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:titleFlow 8s linear infinite;
+}
+
+@keyframes titleFlow{
+    to{background-position:300%}
+}
+
+.hero-title p{
+    color:#9ab7d2;
+    margin-top:8px;
+    font-size:14px;
+}
+
+/* =========================
+   ORBIT AREA
+========================= */
+
+.orbit-space{
+    position:relative;
+    width:min(1100px,96vw);
+    height:680px;
+    margin-top:10px;
+    transform-style:preserve-3d;
+    perspective:1400px;
+}
+
+/* orbit rings */
+
+.orbit{
+    position:absolute;
+    left:50%;
+    top:50%;
+    border-radius:50%;
+    pointer-events:none;
+    transform-origin:center;
+    transform-style:preserve-3d;
+}
+
+.orbit.one{
+    width:650px;
+    height:650px;
+    margin-left:-325px;
+    margin-top:-325px;
+    border:1px solid rgba(53,211,255,.24);
+    box-shadow:
+        0 0 25px rgba(0,174,255,.08),
+        inset 0 0 25px rgba(0,174,255,.04);
+    animation:orbitRing1 25s linear infinite;
+}
+
+.orbit.two{
+    width:800px;
+    height:500px;
+    margin-left:-400px;
+    margin-top:-250px;
+    border:1px solid rgba(135,99,255,.18);
+    animation:orbitRing2 38s linear infinite reverse;
+}
+
+.orbit.three{
+    width:930px;
+    height:370px;
+    margin-left:-465px;
+    margin-top:-185px;
+    border:1px solid rgba(0,228,255,.13);
+    animation:orbitRing3 45s linear infinite;
+}
+
+@keyframes orbitRing1{
+    from{
+        transform:rotateX(66deg) rotateZ(0deg);
+    }
+    to{
+        transform:rotateX(66deg) rotateZ(360deg);
+    }
+}
+
+@keyframes orbitRing2{
+    from{
+        transform:rotateX(68deg) rotateZ(20deg);
+    }
+    to{
+        transform:rotateX(68deg) rotateZ(380deg);
+    }
+}
+
+@keyframes orbitRing3{
+    from{
+        transform:rotateX(72deg) rotateZ(-30deg);
+    }
+    to{
+        transform:rotateX(72deg) rotateZ(330deg);
+    }
+}
+
+.orbit::before,
+.orbit::after{
+    content:"";
+    position:absolute;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#4ce4ff;
+    box-shadow:
+        0 0 10px #4ce4ff,
+        0 0 25px #148dff;
+}
+
+.orbit::before{
+    left:0;
+    top:50%;
+}
+
+.orbit::after{
+    right:0;
+    top:50%;
+}
+
+/* =========================
+   CENTER CORE
+========================= */
+
+.center-core{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:225px;
+    height:225px;
+    margin-left:-112.5px;
+    margin-top:-112.5px;
+    border-radius:50%;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transform-style:preserve-3d;
+}
+
+.core-outer{
+    position:absolute;
+    inset:-22px;
+    border-radius:50%;
+    border:1px solid rgba(74,215,255,.25);
+    box-shadow:
+        0 0 35px rgba(0,185,255,.25),
+        inset 0 0 35px rgba(0,185,255,.12);
+    animation:coreSpin 15s linear infinite;
+}
+
+.core-outer::before,
+.core-outer::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    border:1px dashed rgba(101,146,255,.3);
+}
+
+.core-outer::before{
+    inset:12px;
+    animation:coreSpin 8s linear infinite reverse;
+}
+
+.core-outer::after{
+    inset:-12px;
+    animation:coreSpin 20s linear infinite;
+}
+
+@keyframes coreSpin{
+    to{transform:rotateZ(360deg)}
+}
+
+.core{
+    width:175px;
+    height:175px;
+    border-radius:50%;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #31ddff 0%,
+            #0877ca 28%,
+            #032451 58%,
+            #010b1c 100%
+        );
+    border:2px solid rgba(107,227,255,.75);
+    box-shadow:
+        0 0 35px rgba(0,200,255,.65),
+        0 0 100px rgba(0,120,255,.28),
+        inset 0 0 35px rgba(0,0,0,.65);
+    animation:coreFloat 4s ease-in-out infinite;
+}
+
+@keyframes coreFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-7px)}
+}
+
+.core-logo{
+    font-size:38px;
+    font-weight:1000;
+    letter-spacing:2px;
+    text-shadow:0 0 15px #9cf3ff;
+}
+
+.core-school{
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:2px;
+    margin-top:4px;
+}
+
+.core-label{
+    font-size:9px;
+    color:#87e9ff;
+    letter-spacing:2px;
+    margin-top:7px;
+}
+
+/* energy rays */
+
+.energy{
+    position:absolute;
+    inset:-55px;
+    border-radius:50%;
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent,
+            rgba(0,214,255,.12),
+            transparent 15%,
+            rgba(76,100,255,.08),
+            transparent 35%
+        );
+    filter:blur(2px);
+    animation:energySpin 10s linear infinite;
+    pointer-events:none;
+}
+
+@keyframes energySpin{
+    to{transform:rotate(360deg)}
+}
+
+/* =========================
+   SATELLITE CARDS
+========================= */
+
+.eco-card{
+    position:absolute;
+    width:195px;
+    min-height:150px;
+    left:50%;
+    top:50%;
+    margin-left:-97.5px;
+    margin-top:-75px;
+
+    padding:20px 16px;
+    text-decoration:none;
+    color:#fff;
+
+    border:1px solid rgba(90,213,255,.28);
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18,54,88,.92),
+            rgba(5,17,35,.94)
+        );
+
+    backdrop-filter:blur(14px);
+
+    transform-style:preserve-3d;
+    will-change:transform;
+
+    box-shadow:
+        0 20px 55px rgba(0,0,0,.5),
+        0 0 25px rgba(0,157,255,.12),
+        inset 0 1px 1px rgba(255,255,255,.15);
+
+    transition:
+        border-color .3s,
+        box-shadow .3s,
+        filter .3s;
+
+    cursor:pointer;
+}
+
+.eco-card:hover{
+    border-color:rgba(90,227,255,.9);
+    box-shadow:
+        0 25px 75px rgba(0,0,0,.65),
+        0 0 50px rgba(0,180,255,.45),
+        inset 0 1px 1px rgba(255,255,255,.28);
+}
+
+.eco-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:22px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.12),
+            transparent 25%
+        );
+    pointer-events:none;
+}
+
+.eco-icon{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:13px;
+
+    font-size:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(52,216,255,.25),
+            rgba(68,86,255,.13)
+        );
+
+    border:1px solid rgba(80,213,255,.35);
+    box-shadow:
+        0 0 20px rgba(0,190,255,.15),
+        inset 0 0 15px rgba(255,255,255,.04);
+}
+
+.eco-card h3{
+    font-size:15px;
+    line-height:1.25;
+    margin-bottom:7px;
+}
+
+.eco-card p{
+    font-size:11px;
+    line-height:1.45;
+    color:#8eaac2;
+}
+
+.eco-number{
+    position:absolute;
+    right:13px;
+    top:10px;
+    font-size:9px;
+    color:#58dfff;
+    letter-spacing:2px;
+}
+
+.eco-card.selected{
+    animation:satelliteSelect .7s ease;
+}
+
+@keyframes satelliteSelect{
+    0%{filter:brightness(1)}
+    35%{
+        filter:brightness(1.8);
+        box-shadow:0 0 80px rgba(48,210,255,.9)
+    }
+    100%{filter:brightness(1)}
+}
+
+/* =========================
+   CONNECTIONS
+========================= */
+
+.connection-layer{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:10;
+}
+
+.connection{
+    position:absolute;
+    height:1px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(63,213,255,.5),
+            transparent
+        );
+    transform-origin:left center;
+    opacity:.18;
+    animation:connectionPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes connectionPulse{
+    from{opacity:.08}
+    to{opacity:.38}
+}
+
+/* =========================
+   SHARED ECOSYSTEM
+========================= */
+
+.shared-section{
+    position:relative;
+    z-index:10;
+    width:min(1120px,92vw);
+    margin:10px auto 60px;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.section-heading .tag{
+    color:#54ddff;
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+}
+
+.section-heading h2{
+    font-size:clamp(25px,4vw,40px);
+    margin-top:7px;
+}
+
+.section-heading p{
+    max-width:720px;
+    margin:10px auto;
+    color:#8fa9c2;
+    line-height:1.7;
+    font-size:14px;
+}
+
+.hub-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+}
+
+.hub-card{
+    position:relative;
+    min-height:230px;
+    padding:28px;
+    border-radius:25px;
+    border:1px solid rgba(91,213,255,.2);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15,38,65,.82),
+            rgba(4,13,28,.9)
+        );
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.08);
+    overflow:hidden;
+}
+
+.hub-card::after{
+    content:"";
+    position:absolute;
+    width:200px;
+    height:200px;
+    right:-80px;
+    bottom:-100px;
+    border-radius:50%;
+    background:rgba(0,195,255,.12);
+    filter:blur(25px);
+}
+
+.hub-icon{
+    font-size:35px;
+    margin-bottom:14px;
+}
+
+.hub-card h3{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.hub-card p{
+    color:#91a9bf;
+    font-size:13px;
+    line-height:1.7;
+}
+
+.hub-list{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.hub-item{
+    padding:10px 12px;
+    border-radius:12px;
+    border:1px solid rgba(100,205,255,.12);
+    background:rgba(255,255,255,.025);
+    color:#b7d1e4;
+    font-size:11px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    position:relative;
+    z-index:10;
+    border-top:1px solid rgba(79,207,255,.15);
+    padding:30px 20px;
+    text-align:center;
+    background:rgba(1,6,15,.7);
+}
+
+footer strong{
+    color:#64ddff;
+}
+
+footer p{
+    color:#6f8ba3;
+    font-size:12px;
+    margin-top:7px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(10px);
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(500px,94vw);
+    padding:32px;
+    border-radius:25px;
+    border:1px solid rgba(89,218,255,.35);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(12,38,67,.97),
+            rgba(3,10,22,.98)
+        );
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.7),
+        0 0 50px rgba(0,165,255,.15);
+    text-align:center;
+    animation:modalIn .35s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:scale(.85) translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+.modal-icon{
+    font-size:45px;
+    margin-bottom:12px;
+}
+
+.modal-box h2{
+    font-size:23px;
+}
+
+.modal-box p{
+    color:#8faac0;
+    font-size:13px;
+    line-height:1.6;
+    margin:12px 0 25px;
+}
+
+.modal-actions{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:140px;
+    padding:12px 18px;
+    border-radius:13px;
+    text-decoration:none;
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+}
+
+.btn-primary{
+    color:#001321;
+    background:linear-gradient(135deg,#5ce7ff,#5c9dff);
+    box-shadow:0 0 25px rgba(40,205,255,.3);
+}
+
+.btn-close{
+    color:#b6ccdc;
+    border:1px solid rgba(110,200,240,.2);
+    background:rgba(255,255,255,.05);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .status{
+        display:none;
+    }
+
+    .orbit-space{
+        width:900px;
+        height:650px;
+        transform:scale(.78);
+        transform-origin:top center;
+        margin-bottom:-120px;
+    }
+
+    .hub-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .brand-title{
+        font-size:14px;
+    }
+
+    .brand-sub{
+        font-size:8px;
+    }
+
+    .brand-logo{
+        width:38px;
+        height:38px;
+    }
+
+    .hero{
+        padding-top:90px;
+    }
+
+    .hero-title h1{
+        font-size:29px;
+    }
+
+    .hero-title .small{
+        font-size:9px;
+        letter-spacing:3px;
+    }
+
+    .orbit-space{
+        width:900px;
+        height:650px;
+        transform:scale(.57);
+        transform-origin:top center;
+        margin-bottom:-280px;
+    }
+
+    .shared-section{
+        margin-top:0;
+    }
+
+    .hub-list{
+        grid-template-columns:1fr;
+    }
+
+    .modal-actions{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars"></div>
+
+<!-- ================= TOP BAR ================= -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            LD
+        </div>
+
+        <div>
+            <div class="brand-title">
+                TRƯỜNG THPT LÊ DUẨN
+            </div>
+
+            <div class="brand-sub">
+                HỆ SINH THÁI SỐ
+            </div>
+        </div>
+
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        HỆ THỐNG TRỰC TUYẾN
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<main>
+
+<section class="hero">
+
+    <div class="hero-title">
+
+        <div class="small">
+            HỆ SINH THÁI SỐ
+        </div>
+
+        <h1>
+            THPT LÊ DUẨN
+        </h1>
+
+        <p>
+            Kết nối dữ liệu • Kết nối giáo viên • Kết nối học sinh
+        </p>
+
+    </div>
+
+
+    <!-- ================= ORBIT ================= -->
+
+    <div class="orbit-space" id="orbitSpace">
+
+        <div class="orbit one"></div>
+        <div class="orbit two"></div>
+        <div class="orbit three"></div>
+
+
+        <!-- CONNECTIONS -->
+
+        <div class="connection-layer">
+
+            <div class="connection"
+                 style="
+                 width:330px;
+                 left:50%;
+                 top:50%;
+                 transform:rotate(-90deg);
+                 ">
+            </div>
+
+            <div class="connection"
+                 style="
+                 width:320px;
+                 left:50%;
+                 top:50%;
+                 transform:rotate(-30deg);
+                 ">
+            </div>
+
+            <div class="connection"
+                 style="
+                 width:320px;
+                 left:50%;
+                 top:50%;
+                 transform:rotate(30deg);
+                 ">
+            </div>
+
+            <div class="connection"
+                 style="
+                 width:320px;
+                 left:50%;
+                 top:50%;
+                 transform:rotate(90deg);
+                 ">
+            </div>
+
+            <div class="connection"
+                 style="
+                 width:320px;
+                 left:50%;
+                 top:50%;
+                 transform:rotate(150deg);
+                 ">
+            </div>
+
+            <div class="connection"
+                 style="
+                 width:320px;
+                 left:50%;
+                 top:50%;
+                 transform:rotate(210deg);
+                 ">
+            </div>
+
+        </div>
+
+
+        <!-- ================= CENTER ================= -->
+
+        <div class="center-core">
+
+            <div class="energy"></div>
+
+            <div class="core-outer"></div>
+
+            <div class="core">
+
+                <div class="core-logo">
+                    LD
+                </div>
+
+                <div class="core-school">
+                    THPT LÊ DUẨN
+                </div>
+
+                <div class="core-label">
+                    DIGITAL HUB
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= SATELLITES ================= -->
+
+        <a class="eco-card"
+           href="javascript:void(0)"
+           data-system="portal">
+
+            <span class="eco-number">
+                01
+            </span>
+
+            <div class="eco-icon">
+                🏫
+            </div>
+
+            <h3>
+                Cổng thông tin<br>
+                của trường
+            </h3>
+
+            <p>
+                Thông tin, tin tức, hoạt động
+                và các thông báo của nhà trường.
+            </p>
+
+        </a>
+
+
+        <a class="eco-card"
+           href="javascript:void(0)"
+           data-system="data">
+
+            <span class="eco-number">
+                02
+            </span>
+
+            <div class="eco-icon">
+                🗄️
+            </div>
+
+            <h3>
+                Kho dữ liệu<br>
+                dùng chung
+            </h3>
+
+            <p>
+                Kho tài liệu, biểu mẫu, dữ liệu
+                dùng chung cho cán bộ và giáo viên.
+            </p>
+
+        </a>
+
+
+        <a class="eco-card"
+           href="javascript:void(0)"
+           data-system="library">
+
+            <span class="eco-number">
+                03
+            </span>
+
+            <div class="eco-icon">
+                📚
+            </div>
+
+            <h3>
+                Thư viện<br>
+                số
+            </h3>
+
+            <p>
+                Tài liệu học tập, bài giảng,
+                học liệu và tài nguyên số.
+            </p>
+
+        </a>
+
+
+        <a class="eco-card"
+           href="javascript:void(0)"
+           data-system="score">
+
+            <span class="eco-number">
+                04
+            </span>
+
+            <div class="eco-icon">
+                📊
+            </div>
+
+            <h3>
+                Tra cứu điểm<br>
+                kiểm tra
+            </h3>
+
+            <p>
+                Tra cứu và quản lý thông tin
+                điểm kiểm tra học tập.
+            </p>
+
+        </a>
+
+
+        <a class="eco-card"
+           href="javascript:void(0)"
+           data-system="timetable">
+
+            <span class="eco-number">
+                05
+            </span>
+
+            <div class="eco-icon">
+                🗓️
+            </div>
+
+            <h3>
+                Xem<br>
+                thời khóa biểu
+            </h3>
+
+            <p>
+                Tra cứu TKB lớp, giáo viên
+                và toàn trường.
+            </p>
+
+        </a>
+
+
+        <a class="eco-card"
+           href="javascript:void(0)"
+           data-system="club">
+
+            <span class="eco-number">
+                06
+            </span>
+
+            <div class="eco-icon">
+                🚀
+            </div>
+
+            <h3>
+                Câu lạc bộ
+            </h3>
+
+            <p>
+                Không gian hoạt động, sáng tạo
+                và kết nối học sinh.
+            </p>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SHARED ECOSYSTEM ================= -->
+
+<section class="shared-section">
+
+    <div class="section-heading">
+
+        <div class="tag">
+            ONE DIGITAL ECOSYSTEM
+        </div>
+
+        <h2>
+            Hệ sinh thái dùng chung
+        </h2>
+
+        <p>
+            Một nền tảng kết nối các hệ thống số của
+            THPT Lê Duẩn, hướng tới việc dùng chung
+            dữ liệu, tài nguyên và dịch vụ số trong toàn trường.
+        </p>
+
+    </div>
+
+
+    <div class="hub-grid">
+
+        <div class="hub-card">
+
+            <div class="hub-icon">
+                🌐
+            </div>
+
+            <h3>
+                Dữ liệu dùng chung
+            </h3>
+
+            <p>
+                Các hệ thống được tổ chức theo hướng
+                liên kết dữ liệu, hạn chế nhập liệu lặp lại
+                và tạo một không gian số thống nhất cho nhà trường.
+            </p>
+
+            <div class="hub-list">
+
+                <div class="hub-item">
+                    👨‍🏫 Giáo viên
+                </div>
+
+                <div class="hub-item">
+                    👨‍🎓 Học sinh
+                </div>
+
+                <div class="hub-item">
+                    📑 Hồ sơ – biểu mẫu
+                </div>
+
+                <div class="hub-item">
+                    📚 Học liệu số
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hub-card">
+
+            <div class="hub-icon">
+                ⚡
+            </div>
+
+            <h3>
+                Quản trị số thông minh
+            </h3>
+
+            <p>
+                Từng hệ thống đóng vai trò như một vệ tinh
+                chuyên biệt nhưng được kết nối về một trung tâm
+                số chung của THPT Lê Duẩn.
+            </p>
+
+            <div class="hub-list">
+
+                <div class="hub-item">
+                    🔐 Phân quyền
+                </div>
+
+                <div class="hub-item">
+                    🔄 Đồng bộ
+                </div>
+
+                <div class="hub-item">
+                    📈 Thống kê
+                </div>
+
+                <div class="hub-item">
+                    ☁️ Trực tuyến
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div>
+        <strong>
+            THPT LÊ DUẨN
+        </strong>
+        • HỆ SINH THÁI SỐ
+    </div>
+
+    <p>
+        Bản quyền thuộc về Thầy Thiện - Trường THPT Lê Duẩn
+    </p>
+
+</footer>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="systemModal">
+
+    <div class="modal-box">
+
+        <div class="modal-icon" id="modalIcon">
+            🌐
+        </div>
+
+        <h2 id="modalTitle">
+            Hệ thống
+        </h2>
+
+        <p id="modalDescription">
+            Đang mở hệ thống...
+        </p>
+
+        <div class="modal-actions">
+
+            <a
+                id="openSystemButton"
+                class="btn btn-primary"
+                href="#"
+                target="_blank"
+                rel="noopener"
+            >
+                🚀 Truy cập hệ thống
+            </a>
+
+            <button
+                class="btn btn-close"
+                onclick="closeModal()"
+            >
+                Đóng
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CẤU HÌNH CÁC HỆ THỐNG
+===================================================== */
+
+const SYSTEM_LINKS = {
+
+    portal: {
+        title:"Cổng thông tin của trường",
+        icon:"🏫",
+        description:
+            "Cổng thông tin chính thức của THPT Lê Duẩn.",
+        url:"#"
+    },
+
+    data: {
+        title:"Kho dữ liệu dùng chung",
+        icon:"🗄️",
+        description:
+            "Kho dữ liệu và tài nguyên dùng chung của nhà trường.",
+        url:"#"
+    },
+
+    library: {
+        title:"Thư viện số",
+        icon:"📚",
+        description:
+            "Thư viện học liệu và tài nguyên số của THPT Lê Duẩn.",
+        url:"#"
+    },
+
+    score: {
+        title:"Tra cứu điểm kiểm tra",
+        icon:"📊",
+        description:
+            "Hệ thống tra cứu thông tin điểm kiểm tra học tập.",
+        url:"#"
+    },
+
+    timetable: {
+        title:"Xem thời khóa biểu",
+        icon:"🗓️",
+        description:
+            "Tra cứu thời khóa biểu lớp, giáo viên và toàn trường.",
+        url:"https://thaythienc3.github.io/thoikhoabieu/"
+    },
+
+    club: {
+        title:"Câu lạc bộ",
+        icon:"🚀",
+        description:
+            "Không gian hoạt động, sáng tạo và kết nối học sinh.",
+        url:"#"
+    }
+
+};
+
+
+/* =====================================================
+   TẠO SAO NỀN
+===================================================== */
+
+const starsContainer =
+    document.getElementById("stars");
+
+for(let i=0;i<180;i++){
+
+    const star =
+        document.createElement("div");
+
+    star.className="star";
+
+    star.style.left =
+        Math.random()*100+"%";
+
+    star.style.top =
+        Math.random()*100+"%";
+
+    const size =
+        Math.random()*2+1;
+
+    star.style.width=size+"px";
+    star.style.height=size+"px";
+
+    star.style.animationDelay =
+        Math.random()*4+"s";
+
+    starsContainer.appendChild(star);
+}
+
+
+/* =====================================================
+   ORBIT ENGINE
+===================================================== */
+
+const satellites =
+    document.querySelectorAll(".eco-card");
+
+const satelliteData=[];
+
+const totalSatellites =
+    satellites.length;
+
+
+/*
+    Bán kính quỹ đạo
+*/
+
+const ORBIT_RADIUS_X = 360;
+const ORBIT_RADIUS_Y = 235;
+const DEPTH = 180;
+
+
+/*
+    Tốc độ quay
+    Có thể tăng/giảm giá trị này.
+*/
+
+const ORBIT_SPEED = 0.000020;
+
+
+let lastFrame =
+    performance.now();
+
+
+let satelliteHover=false;
+
+
+/* khởi tạo */
+
+satellites.forEach((card,index)=>{
+
+    satelliteData.push({
+
+        card:card,
+
+        angle:
+            (Math.PI*2/totalSatellites)*index,
+
+        speed:
+            ORBIT_SPEED*
+            (0.94+index*0.018)
+
+    });
+
+
+    card.addEventListener(
+        "mouseenter",
+        ()=>{
+            satelliteHover=true;
+        }
+    );
+
+
+    card.addEventListener(
+        "mouseleave",
+        ()=>{
+            satelliteHover=false;
+        }
+    );
+
+});
+
+
+/* =====================================================
+   RENDER SATELLITES
+===================================================== */
+
+function renderSatellites(){
+
+    satelliteData.forEach(item=>{
+
+        const card =
+            item.card;
+
+        const angle =
+            item.angle;
+
+
+        /*
+            X = ngang
+            Y = dọc
+            Z = chiều sâu
+        */
+
+        const x =
+            Math.cos(angle)*
+            ORBIT_RADIUS_X;
+
+
+        const y =
+            Math.sin(angle)*
+            ORBIT_RADIUS_Y;
+
+
+        const z =
+            Math.sin(angle)*
+            DEPTH;
+
+
+        /*
+            Card phía trước lớn hơn.
+        */
+
+        const depthRatio =
+            (z+DEPTH)/
+            (DEPTH*2);
+
+
+        const scale =
+            0.78+
+            depthRatio*0.28;
+
+
+        const brightness =
+            0.76+
+            depthRatio*0.24;
+
+
+        const zIndex =
+            Math.round(100+z);
+
+
+        card.style.transform =
+            `translate3d(
+                ${x}px,
+                ${y}px,
+                ${z}px
+            ) scale(${scale})`;
+
+
+        card.style.zIndex =
+            zIndex;
+
+
+        card.style.filter =
+            `brightness(${brightness})`;
+
+    });
+
+}
+
+
+/* =====================================================
+   ANIMATION LOOP
+===================================================== */
+
+function animateSatellites(now){
+
+    const delta =
+        now-lastFrame;
+
+    lastFrame=now;
+
+
+    /*
+        Khi rê chuột vào vệ tinh:
+        tạm dừng quỹ đạo.
+    */
+
+    if(!satelliteHover){
+
+        satelliteData.forEach(item=>{
+
+            item.angle +=
+                item.speed*delta;
+
+        });
+
+    }
+
+
+    renderSatellites();
+
+
+    requestAnimationFrame(
+        animateSatellites
+    );
+
+}
+
+
+requestAnimationFrame(
+    animateSatellites
+);
+
+
+/* =====================================================
+   CLICK VỆ TINH
+===================================================== */
+
+satellites.forEach(card=>{
+
+    card.addEventListener(
+        "click",
+        ()=>{
+
+            const system =
+                card.dataset.system;
+
+            openSystem(system);
+
+
+            card.classList.add(
+                "selected"
+            );
+
+
+            setTimeout(()=>{
+
+                card.classList.remove(
+                    "selected"
+                );
+
+            },700);
+
+        }
+    );
+
+});
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+const modal =
+    document.getElementById(
+        "systemModal"
+    );
+
+
+const modalIcon =
+    document.getElementById(
+        "modalIcon"
+    );
+
+
+const modalTitle =
+    document.getElementById(
+        "modalTitle"
+    );
+
+
+const modalDescription =
+    document.getElementById(
+        "modalDescription"
+    );
+
+
+const openButton =
+    document.getElementById(
+        "openSystemButton"
+    );
+
+
+function openSystem(id){
+
+    const system =
+        SYSTEM_LINKS[id];
+
+
+    if(!system){
+        return;
+    }
+
+
+    modalIcon.textContent =
+        system.icon;
+
+
+    modalTitle.textContent =
+        system.title;
+
+
+    modalDescription.textContent =
+        system.description;
+
+
+    openButton.href =
+        system.url;
+
+
+    /*
+        Nếu chưa có URL,
+        nút sẽ báo chưa cấu hình.
+    */
+
+    if(system.url==="#" ){
+
+        openButton.textContent =
+            "⚙ Chưa cấu hình liên kết";
+
+        openButton.style.opacity=".55";
+
+        openButton.style.pointerEvents=
+            "none";
+
+    }else{
+
+        openButton.textContent =
+            "🚀 Truy cập hệ thống";
+
+        openButton.style.opacity="1";
+
+        openButton.style.pointerEvents=
+            "auto";
+
+    }
+
+
+    modal.classList.add("show");
+
+}
+
+
+function closeModal(){
+
+    modal.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =====================================================
+   CLICK RA NGOÀI MODAL
+===================================================== */
+
+modal.addEventListener(
+    "click",
+    function(e){
+
+        if(e.target===modal){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PHÍM ESC
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(e.key==="Escape"){
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ĐIỀU CHỈNH TỐC ĐỘ THEO THIẾT BỊ
+===================================================== */
+
+function responsiveOrbit(){
+
+    const width =
+        window.innerWidth;
+
+
+    /*
+        Màn hình nhỏ:
+        thu nhỏ bán kính quỹ đạo.
+    */
+
+    if(width<650){
+
+        document.documentElement
+            .style
+            .setProperty(
+                "--orbit-scale",
+                ".72"
+            );
+
+    }
+
+    else if(width<900){
+
+        document.documentElement
+            .style
+            .setProperty(
+                "--orbit-scale",
+                ".88"
+            );
+
+    }
+
+    else{
+
+        document.documentElement
+            .style
+            .setProperty(
+                "--orbit-scale",
+                "1"
+            );
+
+    }
+
+}
+
+
+window.addEventListener(
+    "resize",
+    responsiveOrbit
+);
+
+
+responsiveOrbit();
+
+</script>
+
+</body>
+</html>
