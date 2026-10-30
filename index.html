@@ -1,1888 +1,652 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trường THPT Lê Duẩn - Hệ sinh thái số</title>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html,body{
-    width:100%;
-    min-height:100%;
-    font-family:"Segoe UI",Arial,sans-serif;
-    background:#020711;
-    color:#fff;
-    overflow-x:hidden;
-}
-
-/* =========================
-   BACKGROUND
-========================= */
-
-body{
-    background:
-        radial-gradient(circle at 50% 42%,rgba(0,132,255,.16),transparent 25%),
-        radial-gradient(circle at 15% 80%,rgba(88,0,255,.10),transparent 25%),
-        radial-gradient(circle at 85% 20%,rgba(0,225,255,.08),transparent 25%),
-        #020711;
-}
-
-#stars{
-    position:fixed;
-    inset:0;
-    z-index:0;
-    pointer-events:none;
-}
-
-.star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:#fff;
-    border-radius:50%;
-    opacity:.4;
-    animation:twinkle 3s infinite ease-in-out;
-}
-
-@keyframes twinkle{
-    0%,100%{opacity:.15;transform:scale(.7)}
-    50%{opacity:.9;transform:scale(1.5)}
-}
-
-/* =========================
-   TOP BAR
-========================= */
-
-.topbar{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    height:72px;
-    z-index:500;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 32px;
-    border-bottom:1px solid rgba(81,205,255,.18);
-    background:rgba(2,8,20,.72);
-    backdrop-filter:blur(18px);
-    box-shadow:0 5px 30px rgba(0,0,0,.3);
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.brand-logo{
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-weight:900;
-    color:#fff;
-    background:
-        radial-gradient(circle,#2edcff 0%,#087bd7 45%,#03142d 75%);
-    border:1px solid rgba(108,226,255,.75);
-    box-shadow:
-        0 0 15px rgba(0,205,255,.55),
-        inset 0 0 15px rgba(255,255,255,.15);
-}
-
-.brand-title{
-    font-size:18px;
-    font-weight:800;
-    letter-spacing:1px;
-}
-
-.brand-sub{
-    font-size:11px;
-    color:#65dfff;
-    letter-spacing:2px;
-    margin-top:2px;
-}
-
-.status{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:12px;
-    color:#80dfff;
-}
-
-.status-dot{
-    width:8px;
-    height:8px;
-    background:#35ffb0;
-    border-radius:50%;
-    box-shadow:0 0 12px #35ffb0;
-    animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-    50%{transform:scale(1.5);opacity:.55}
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-    position:relative;
-    z-index:2;
-    min-height:100vh;
-    padding-top:100px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
-.hero-title{
-    text-align:center;
-    margin-top:15px;
-    z-index:10;
-}
-
-.hero-title .small{
-    color:#5cdcff;
-    font-size:13px;
-    letter-spacing:5px;
-    text-transform:uppercase;
-    margin-bottom:8px;
-}
-
-.hero-title h1{
-    font-size:clamp(30px,5vw,58px);
-    font-weight:900;
-    letter-spacing:2px;
-    background:linear-gradient(
-        90deg,
-        #fff,
-        #62e4ff,
-        #fff,
-        #8c83ff
-    );
-    background-size:300%;
-    -webkit-background-clip:text;
-    color:transparent;
-    animation:titleFlow 8s linear infinite;
-}
-
-@keyframes titleFlow{
-    to{background-position:300%}
-}
-
-.hero-title p{
-    color:#9ab7d2;
-    margin-top:8px;
-    font-size:14px;
-}
-
-/* =========================
-   ORBIT AREA
-========================= */
-
-.orbit-space{
-    position:relative;
-    width:min(1100px,96vw);
-    height:680px;
-    margin-top:10px;
-    transform-style:preserve-3d;
-    perspective:1400px;
-}
-
-/* orbit rings */
-
-.orbit{
-    position:absolute;
-    left:50%;
-    top:50%;
-    border-radius:50%;
-    pointer-events:none;
-    transform-origin:center;
-    transform-style:preserve-3d;
-}
-
-.orbit.one{
-    width:650px;
-    height:650px;
-    margin-left:-325px;
-    margin-top:-325px;
-    border:1px solid rgba(53,211,255,.24);
-    box-shadow:
-        0 0 25px rgba(0,174,255,.08),
-        inset 0 0 25px rgba(0,174,255,.04);
-    animation:orbitRing1 25s linear infinite;
-}
-
-.orbit.two{
-    width:800px;
-    height:500px;
-    margin-left:-400px;
-    margin-top:-250px;
-    border:1px solid rgba(135,99,255,.18);
-    animation:orbitRing2 38s linear infinite reverse;
-}
-
-.orbit.three{
-    width:930px;
-    height:370px;
-    margin-left:-465px;
-    margin-top:-185px;
-    border:1px solid rgba(0,228,255,.13);
-    animation:orbitRing3 45s linear infinite;
-}
-
-@keyframes orbitRing1{
-    from{
-        transform:rotateX(66deg) rotateZ(0deg);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eff7ff">
+  <meta name="description" content="Cổng truy cập tập trung các hệ thống số của Trường THPT Lê Duẩn.">
+  <title>Hệ sinh thái số | Trường THPT Lê Duẩn</title>
+  <style>
+    :root {
+      --navy: #17345f;
+      --blue: #1769d2;
+      --blue-dark: #0e4fa8;
+      --cyan: #20b9d6;
+      --ink: #203451;
+      --muted: #62748c;
+      --line: #dce8f5;
+      --surface: rgba(255,255,255,.88);
+      --shadow: 0 14px 40px rgba(35, 83, 139, .10);
+      --radius: 22px;
     }
-    to{
-        transform:rotateX(66deg) rotateZ(360deg);
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(ellipse at 8% 8%, rgba(63, 174, 255, .16), transparent 34%),
+        radial-gradient(ellipse at 92% 16%, rgba(35, 201, 213, .14), transparent 30%),
+        linear-gradient(180deg, #f5faff 0%, #edf5ff 48%, #f8fbff 100%);
+      overflow-x: hidden;
     }
-}
-
-@keyframes orbitRing2{
-    from{
-        transform:rotateX(68deg) rotateZ(20deg);
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 3px solid #f2b84b;
+      outline-offset: 3px;
     }
-    to{
-        transform:rotateX(68deg) rotateZ(380deg);
+    .ambient {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden;
     }
-}
-
-@keyframes orbitRing3{
-    from{
-        transform:rotateX(72deg) rotateZ(-30deg);
+    .ambient::before, .ambient::after {
+      content: ""; position: absolute; border-radius: 50%; filter: blur(2px);
+      border: 1px solid rgba(46, 133, 215, .13);
     }
-    to{
-        transform:rotateX(72deg) rotateZ(330deg);
+    .ambient::before { width: 440px; height: 440px; right: -180px; top: 220px; }
+    .ambient::after { width: 300px; height: 300px; left: -160px; bottom: 5%; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+      padding: 13px max(22px, calc((100vw - 1180px)/2));
+      background: rgba(255,255,255,.86);
+      border-bottom: 1px solid rgba(199, 219, 241, .9);
+      box-shadow: 0 5px 24px rgba(33, 75, 124, .06);
+      backdrop-filter: blur(16px);
     }
-}
-
-.orbit::before,
-.orbit::after{
-    content:"";
-    position:absolute;
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#4ce4ff;
-    box-shadow:
-        0 0 10px #4ce4ff,
-        0 0 25px #148dff;
-}
-
-.orbit::before{
-    left:0;
-    top:50%;
-}
-
-.orbit::after{
-    right:0;
-    top:50%;
-}
-
-/* =========================
-   CENTER CORE
-========================= */
-
-.center-core{
-    position:absolute;
-    left:50%;
-    top:50%;
-    width:225px;
-    height:225px;
-    margin-left:-112.5px;
-    margin-top:-112.5px;
-    border-radius:50%;
-    z-index:100;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transform-style:preserve-3d;
-}
-
-.core-outer{
-    position:absolute;
-    inset:-22px;
-    border-radius:50%;
-    border:1px solid rgba(74,215,255,.25);
-    box-shadow:
-        0 0 35px rgba(0,185,255,.25),
-        inset 0 0 35px rgba(0,185,255,.12);
-    animation:coreSpin 15s linear infinite;
-}
-
-.core-outer::before,
-.core-outer::after{
-    content:"";
-    position:absolute;
-    border-radius:50%;
-    border:1px dashed rgba(101,146,255,.3);
-}
-
-.core-outer::before{
-    inset:12px;
-    animation:coreSpin 8s linear infinite reverse;
-}
-
-.core-outer::after{
-    inset:-12px;
-    animation:coreSpin 20s linear infinite;
-}
-
-@keyframes coreSpin{
-    to{transform:rotateZ(360deg)}
-}
-
-.core{
-    width:175px;
-    height:175px;
-    border-radius:50%;
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    background:
-        radial-gradient(
-            circle at 35% 25%,
-            #31ddff 0%,
-            #0877ca 28%,
-            #032451 58%,
-            #010b1c 100%
-        );
-    border:2px solid rgba(107,227,255,.75);
-    box-shadow:
-        0 0 35px rgba(0,200,255,.65),
-        0 0 100px rgba(0,120,255,.28),
-        inset 0 0 35px rgba(0,0,0,.65);
-    animation:coreFloat 4s ease-in-out infinite;
-}
-
-@keyframes coreFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-7px)}
-}
-
-.core-logo{
-    font-size:38px;
-    font-weight:1000;
-    letter-spacing:2px;
-    text-shadow:0 0 15px #9cf3ff;
-}
-
-.core-school{
-    font-size:12px;
-    font-weight:800;
-    letter-spacing:2px;
-    margin-top:4px;
-}
-
-.core-label{
-    font-size:9px;
-    color:#87e9ff;
-    letter-spacing:2px;
-    margin-top:7px;
-}
-
-/* energy rays */
-
-.energy{
-    position:absolute;
-    inset:-55px;
-    border-radius:50%;
-    background:
-        conic-gradient(
-            from 0deg,
-            transparent,
-            rgba(0,214,255,.12),
-            transparent 15%,
-            rgba(76,100,255,.08),
-            transparent 35%
-        );
-    filter:blur(2px);
-    animation:energySpin 10s linear infinite;
-    pointer-events:none;
-}
-
-@keyframes energySpin{
-    to{transform:rotate(360deg)}
-}
-
-/* =========================
-   SATELLITE CARDS
-========================= */
-
-.eco-card{
-    position:absolute;
-    width:195px;
-    min-height:150px;
-    left:50%;
-    top:50%;
-    margin-left:-97.5px;
-    margin-top:-75px;
-
-    padding:20px 16px;
-    text-decoration:none;
-    color:#fff;
-
-    border:1px solid rgba(90,213,255,.28);
-    border-radius:22px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(18,54,88,.92),
-            rgba(5,17,35,.94)
-        );
-
-    backdrop-filter:blur(14px);
-
-    transform-style:preserve-3d;
-    will-change:transform;
-
-    box-shadow:
-        0 20px 55px rgba(0,0,0,.5),
-        0 0 25px rgba(0,157,255,.12),
-        inset 0 1px 1px rgba(255,255,255,.15);
-
-    transition:
-        border-color .3s,
-        box-shadow .3s,
-        filter .3s;
-
-    cursor:pointer;
-}
-
-.eco-card:hover{
-    border-color:rgba(90,227,255,.9);
-    box-shadow:
-        0 25px 75px rgba(0,0,0,.65),
-        0 0 50px rgba(0,180,255,.45),
-        inset 0 1px 1px rgba(255,255,255,.28);
-}
-
-.eco-card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:22px;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.12),
-            transparent 25%
-        );
-    pointer-events:none;
-}
-
-.eco-icon{
-    width:52px;
-    height:52px;
-    border-radius:16px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:13px;
-
-    font-size:25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(52,216,255,.25),
-            rgba(68,86,255,.13)
-        );
-
-    border:1px solid rgba(80,213,255,.35);
-    box-shadow:
-        0 0 20px rgba(0,190,255,.15),
-        inset 0 0 15px rgba(255,255,255,.04);
-}
-
-.eco-card h3{
-    font-size:15px;
-    line-height:1.25;
-    margin-bottom:7px;
-}
-
-.eco-card p{
-    font-size:11px;
-    line-height:1.45;
-    color:#8eaac2;
-}
-
-.eco-number{
-    position:absolute;
-    right:13px;
-    top:10px;
-    font-size:9px;
-    color:#58dfff;
-    letter-spacing:2px;
-}
-
-.eco-card.selected{
-    animation:satelliteSelect .7s ease;
-}
-
-@keyframes satelliteSelect{
-    0%{filter:brightness(1)}
-    35%{
-        filter:brightness(1.8);
-        box-shadow:0 0 80px rgba(48,210,255,.9)
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; text-decoration: none; }
+    .brand-mark {
+      width: 48px; height: 48px; flex: 0 0 48px; display: grid; place-items: center;
+      color: white; font-weight: 900; letter-spacing: -1px; font-size: 17px;
+      border-radius: 16px; background: linear-gradient(145deg, #27b9dc, #1769d2 70%);
+      box-shadow: 0 8px 20px rgba(23, 105, 210, .22);
     }
-    100%{filter:brightness(1)}
-}
-
-/* =========================
-   CONNECTIONS
-========================= */
-
-.connection-layer{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    z-index:10;
-}
-
-.connection{
-    position:absolute;
-    height:1px;
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(63,213,255,.5),
-            transparent
-        );
-    transform-origin:left center;
-    opacity:.18;
-    animation:connectionPulse 3s ease-in-out infinite alternate;
-}
-
-@keyframes connectionPulse{
-    from{opacity:.08}
-    to{opacity:.38}
-}
-
-/* =========================
-   SHARED ECOSYSTEM
-========================= */
-
-.shared-section{
-    position:relative;
-    z-index:10;
-    width:min(1120px,92vw);
-    margin:10px auto 60px;
-}
-
-.section-heading{
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.section-heading .tag{
-    color:#54ddff;
-    font-size:11px;
-    letter-spacing:4px;
-    text-transform:uppercase;
-}
-
-.section-heading h2{
-    font-size:clamp(25px,4vw,40px);
-    margin-top:7px;
-}
-
-.section-heading p{
-    max-width:720px;
-    margin:10px auto;
-    color:#8fa9c2;
-    line-height:1.7;
-    font-size:14px;
-}
-
-.hub-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:22px;
-}
-
-.hub-card{
-    position:relative;
-    min-height:230px;
-    padding:28px;
-    border-radius:25px;
-    border:1px solid rgba(91,213,255,.2);
-    background:
-        linear-gradient(
-            145deg,
-            rgba(15,38,65,.82),
-            rgba(4,13,28,.9)
-        );
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.35),
-        inset 0 1px rgba(255,255,255,.08);
-    overflow:hidden;
-}
-
-.hub-card::after{
-    content:"";
-    position:absolute;
-    width:200px;
-    height:200px;
-    right:-80px;
-    bottom:-100px;
-    border-radius:50%;
-    background:rgba(0,195,255,.12);
-    filter:blur(25px);
-}
-
-.hub-icon{
-    font-size:35px;
-    margin-bottom:14px;
-}
-
-.hub-card h3{
-    font-size:20px;
-    margin-bottom:10px;
-}
-
-.hub-card p{
-    color:#91a9bf;
-    font-size:13px;
-    line-height:1.7;
-}
-
-.hub-list{
-    margin-top:18px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.hub-item{
-    padding:10px 12px;
-    border-radius:12px;
-    border:1px solid rgba(100,205,255,.12);
-    background:rgba(255,255,255,.025);
-    color:#b7d1e4;
-    font-size:11px;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    position:relative;
-    z-index:10;
-    border-top:1px solid rgba(79,207,255,.15);
-    padding:30px 20px;
-    text-align:center;
-    background:rgba(1,6,15,.7);
-}
-
-footer strong{
-    color:#64ddff;
-}
-
-footer p{
-    color:#6f8ba3;
-    font-size:12px;
-    margin-top:7px;
-}
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:1000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(10px);
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:min(500px,94vw);
-    padding:32px;
-    border-radius:25px;
-    border:1px solid rgba(89,218,255,.35);
-    background:
-        linear-gradient(
-            145deg,
-            rgba(12,38,67,.97),
-            rgba(3,10,22,.98)
-        );
-    box-shadow:
-        0 35px 100px rgba(0,0,0,.7),
-        0 0 50px rgba(0,165,255,.15);
-    text-align:center;
-    animation:modalIn .35s ease;
-}
-
-@keyframes modalIn{
-    from{
-        opacity:0;
-        transform:scale(.85) translateY(20px);
+    .brand-name { font-size: 14px; font-weight: 850; letter-spacing: .35px; color: var(--navy); }
+    .brand-sub { margin-top: 4px; font-size: 11px; color: #397ab8; letter-spacing: 1.4px; font-weight: 750; }
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .status-chip {
+      display: inline-flex; align-items: center; gap: 8px; padding: 9px 12px;
+      border: 1px solid #d8e8f8; border-radius: 999px; color: #416581;
+      background: #f7fbff; font-size: 12px; font-weight: 700; white-space: nowrap;
     }
-    to{
-        opacity:1;
-        transform:scale(1) translateY(0);
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22b987; box-shadow: 0 0 0 4px rgba(34,185,135,.12); }
+    .hero { max-width: 1180px; margin: 0 auto; padding: 66px 22px 32px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(270px, .85fr); align-items: center; gap: 34px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px;
+      color: #1766b5; background: #e5f3ff; border: 1px solid #d0e9ff;
+      border-radius: 999px; font-size: 11px; font-weight: 850; letter-spacing: 1.7px;
     }
-}
-
-.modal-icon{
-    font-size:45px;
-    margin-bottom:12px;
-}
-
-.modal-box h2{
-    font-size:23px;
-}
-
-.modal-box p{
-    color:#8faac0;
-    font-size:13px;
-    line-height:1.6;
-    margin:12px 0 25px;
-}
-
-.modal-actions{
-    display:flex;
-    gap:12px;
-    justify-content:center;
-}
-
-.btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    min-width:140px;
-    padding:12px 18px;
-    border-radius:13px;
-    text-decoration:none;
-    font-weight:700;
-    font-size:13px;
-    cursor:pointer;
-}
-
-.btn-primary{
-    color:#001321;
-    background:linear-gradient(135deg,#5ce7ff,#5c9dff);
-    box-shadow:0 0 25px rgba(40,205,255,.3);
-}
-
-.btn-close{
-    color:#b6ccdc;
-    border:1px solid rgba(110,200,240,.2);
-    background:rgba(255,255,255,.05);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:900px){
-
-    .topbar{
-        padding:0 15px;
+    h1 {
+      max-width: 700px; margin: 18px 0 14px; color: var(--navy);
+      font-size: clamp(34px, 5vw, 58px); line-height: 1.08; letter-spacing: -1.8px;
     }
-
-    .status{
-        display:none;
+    .gradient-text { color: var(--blue); }
+    .hero-copy { max-width: 650px; color: var(--muted); font-size: 16px; line-height: 1.8; margin: 0; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 45px; padding: 12px 17px; border-radius: 13px; text-decoration: none;
+      font-weight: 800; font-size: 13px; border: 1px solid transparent; cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
     }
-
-    .orbit-space{
-        width:900px;
-        height:650px;
-        transform:scale(.78);
-        transform-origin:top center;
-        margin-bottom:-120px;
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: white; background: linear-gradient(135deg, #2189e8, #175ac1); box-shadow: 0 10px 22px rgba(23,105,210,.2); }
+    .button-secondary { color: #28527d; background: rgba(255,255,255,.8); border-color: #d5e5f5; }
+    .hero-visual {
+      min-height: 275px; position: relative; display: grid; place-items: center;
+      border: 1px solid rgba(201, 224, 246, .95); border-radius: 32px;
+      background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(227,243,255,.82));
+      box-shadow: var(--shadow); overflow: hidden; isolation: isolate;
     }
-
-    .hub-grid{
-        grid-template-columns:1fr;
+    .hero-visual::before, .hero-visual::after {
+      content: ""; position: absolute; border: 1px solid rgba(42,137,215,.18); border-radius: 50%;
+      width: 230px; height: 230px; animation: orbit 24s linear infinite;
     }
-}
-
-@media(max-width:650px){
-
-    .brand-title{
-        font-size:14px;
+    .hero-visual::after { width: 310px; height: 150px; transform: rotate(-28deg); animation-direction: reverse; }
+    .visual-core {
+      position: relative; z-index: 2; width: 138px; height: 138px; border-radius: 34px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px;
+      color: white; background: linear-gradient(145deg, #27b9d7, #1765ca 72%);
+      box-shadow: 0 18px 40px rgba(23,105,210,.28); transform: rotate(-4deg);
+      animation: float 4s ease-in-out infinite;
     }
-
-    .brand-sub{
-        font-size:8px;
+    .visual-core .monogram { font-size: 36px; line-height: 1; font-weight: 950; letter-spacing: -2px; }
+    .visual-core span:last-child { font-size: 9px; font-weight: 800; letter-spacing: 1.6px; }
+    .orbit-icon {
+      position: absolute; z-index: 3; width: 46px; height: 46px; display: grid; place-items: center;
+      border-radius: 15px; background: white; border: 1px solid #d7e9fa;
+      box-shadow: 0 8px 22px rgba(32,84,140,.12); font-size: 22px;
+      animation: float 4.5s ease-in-out infinite;
     }
-
-    .brand-logo{
-        width:38px;
-        height:38px;
+    .orbit-icon.i1 { top: 18%; left: 18%; }
+    .orbit-icon.i2 { top: 17%; right: 17%; animation-delay: -.8s; }
+    .orbit-icon.i3 { bottom: 15%; left: 19%; animation-delay: -1.5s; }
+    .orbit-icon.i4 { bottom: 15%; right: 18%; animation-delay: -.4s; }
+    .hero-note { position: absolute; bottom: 13px; z-index: 4; color: #6786a5; font-size: 10px; font-weight: 750; letter-spacing: 1px; }
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 32px;
     }
-
-    .hero{
-        padding-top:90px;
+    .stat {
+      display: flex; align-items: center; gap: 13px; padding: 17px 18px;
+      border: 1px solid #dce9f7; border-radius: 17px; background: rgba(255,255,255,.8);
     }
-
-    .hero-title h1{
-        font-size:29px;
+    .stat-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: #e8f4ff; font-size: 20px; flex: 0 0 42px; }
+    .stat strong { display: block; color: var(--navy); font-size: 19px; }
+    .stat span:last-child { display: block; color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .section { max-width: 1180px; margin: 0 auto; padding: 36px 22px 55px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 23px; }
+    .section-kicker { color: #1678c9; font-size: 11px; letter-spacing: 2px; font-weight: 900; }
+    h2 { margin: 7px 0 7px; color: var(--navy); font-size: clamp(25px, 3vw, 34px); letter-spacing: -.7px; }
+    .section-desc { margin: 0; max-width: 670px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .search-wrap { position: relative; width: min(100%, 300px); flex: 0 0 300px; }
+    .search-wrap .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 17px; pointer-events: none; }
+    .search {
+      width: 100%; min-height: 46px; padding: 12px 14px 12px 42px;
+      border: 1px solid #d5e5f5; border-radius: 14px; background: rgba(255,255,255,.9);
+      color: var(--ink); outline: none; box-shadow: 0 4px 15px rgba(35,83,139,.04);
     }
-
-    .hero-title .small{
-        font-size:9px;
-        letter-spacing:3px;
+    .search:focus { border-color: #73b8f1; box-shadow: 0 0 0 4px rgba(37,135,221,.1); }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+    .filter {
+      border: 1px solid #d8e7f6; color: #496781; background: rgba(255,255,255,.75);
+      padding: 9px 13px; border-radius: 999px; cursor: pointer; font-size: 12px; font-weight: 800;
+      transition: all .2s ease;
     }
-
-    .orbit-space{
-        width:900px;
-        height:650px;
-        transform:scale(.57);
-        transform-origin:top center;
-        margin-bottom:-280px;
+    .filter:hover { border-color: #9acbf3; }
+    .filter[aria-pressed="true"] { background: #1769d2; border-color: #1769d2; color: white; box-shadow: 0 6px 16px rgba(23,105,210,.18); }
+    .systems-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .system-card {
+      position: relative; min-width: 0; display: flex; flex-direction: column; padding: 22px;
+      background: var(--surface); border: 1px solid #dce8f5; border-radius: var(--radius);
+      box-shadow: 0 8px 26px rgba(35,83,139,.055); overflow: hidden;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      animation: rise .45s both;
     }
-
-    .shared-section{
-        margin-top:0;
+    .system-card::after {
+      content: ""; position: absolute; right: -45px; top: -55px; width: 130px; height: 130px;
+      border-radius: 50%; background: var(--tint, #e6f4ff); opacity: .8; pointer-events: none;
     }
-
-    .hub-list{
-        grid-template-columns:1fr;
+    .system-card:hover { transform: translateY(-5px); border-color: #b4d7f6; box-shadow: 0 18px 35px rgba(35,83,139,.12); }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; position: relative; z-index: 1; }
+    .system-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 17px; background: var(--tint, #e6f4ff); font-size: 27px; }
+    .system-number { color: #8aa2ba; font-size: 11px; font-weight: 900; letter-spacing: 1.2px; padding-top: 5px; }
+    .system-card h3 { position: relative; z-index: 1; margin: 19px 0 8px; color: var(--navy); font-size: 18px; line-height: 1.35; }
+    .system-card p { position: relative; z-index: 1; color: var(--muted); font-size: 13px; line-height: 1.7; margin: 0 0 20px; flex: 1; }
+    .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 15px; }
+    .category-tag { color: #497092; background: #f0f7fd; border: 1px solid #e0edf8; border-radius: 7px; padding: 5px 8px; font-size: 10px; font-weight: 800; }
+    .favorite {
+      border: 1px solid #e0eaf4; background: #fff; color: #7a91a8; border-radius: 10px;
+      width: 34px; height: 32px; cursor: pointer; font-size: 17px; line-height: 1;
     }
-
-    .modal-actions{
-        flex-direction:column;
+    .favorite[aria-pressed="true"] { color: #d64f79; background: #fff1f5; border-color: #ffd3e0; }
+    .card-link {
+      display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; z-index: 1;
+      width: 100%; min-height: 43px; border-radius: 12px; text-decoration: none;
+      background: #eaf4ff; color: #155eae; border: 1px solid #d8eaff; font-size: 12px; font-weight: 850;
+      transition: background .2s ease, color .2s ease;
     }
-
-    .btn{
-        width:100%;
+    .card-link:hover { background: #1769d2; color: white; border-color: #1769d2; }
+    .empty-state { display: none; text-align: center; padding: 45px 20px; border: 1px dashed #c6dced; border-radius: 20px; color: var(--muted); background: rgba(255,255,255,.55); }
+    .empty-state strong { display: block; color: var(--navy); margin: 8px 0; }
+    .info-band {
+      max-width: 1136px; margin: 0 auto 56px; padding: 0 22px;
     }
-}
-
-@media(prefers-reduced-motion:reduce){
-    *,
-    *::before,
-    *::after{
-        animation-duration:.01ms !important;
-        animation-iteration-count:1 !important;
-        scroll-behavior:auto !important;
+    .info-inner {
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; padding: 28px;
+      border: 1px solid #d9e9f8; border-radius: 25px;
+      background: linear-gradient(120deg, rgba(255,255,255,.94), rgba(231,245,255,.9));
+      box-shadow: var(--shadow);
     }
-}
-</style>
+    .info-inner h2 { font-size: 23px; }
+    .info-inner p { color: var(--muted); font-size: 13px; line-height: 1.8; margin-bottom: 0; }
+    .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-content: center; }
+    .feature { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 13px; background: white; border: 1px solid #e0edf8; font-size: 12px; font-weight: 750; color: #42617f; }
+    footer { padding: 26px 22px 32px; border-top: 1px solid #dce8f5; text-align: center; background: rgba(255,255,255,.62); }
+    footer strong { color: var(--navy); font-size: 13px; }
+    footer p { color: #7c91a7; font-size: 11px; margin: 8px 0 0; line-height: 1.7; }
+    .toast {
+      position: fixed; left: 50%; bottom: 22px; transform: translate(-50%, 20px);
+      z-index: 100; opacity: 0; pointer-events: none; padding: 12px 16px;
+      background: #17345f; color: white; border-radius: 12px; font-size: 12px;
+      box-shadow: 0 12px 28px rgba(23,52,95,.22); transition: .25s ease;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @keyframes orbit { to { rotate: 360deg; } }
+    @keyframes float { 0%,100% { translate: 0 0; } 50% { translate: 0 -7px; } }
+    @keyframes rise { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+    /* Hiệu ứng nâng cấp: ánh sáng chuyển động, biểu tượng nổi và xuất hiện theo cuộn */
+    body::before {
+      content: ""; position: fixed; inset: -20%; z-index: -2; pointer-events: none;
+      background: conic-gradient(from 0deg at 50% 50%, rgba(32,185,214,.035), rgba(23,105,210,.06), rgba(128,102,255,.035), rgba(32,185,214,.035));
+      animation: ambientSpin 38s linear infinite;
+    }
+    .hero-visual { animation: visualGlow 7s ease-in-out infinite; }
+    .hero-visual::before { box-shadow: 0 0 35px rgba(32,185,214,.08); }
+    .visual-core { animation: float 4s ease-in-out infinite, corePulse 5s ease-in-out infinite; }
+    .orbit-icon { transition: transform .35s ease, box-shadow .35s ease; }
+    .orbit-icon:hover { transform: translateY(-8px) rotate(8deg) scale(1.12); box-shadow: 0 14px 28px rgba(32,84,140,.2); }
+    .stat { transition: transform .3s ease, box-shadow .3s ease; animation: rise .7s both; }
+    .stat:nth-child(2) { animation-delay: .12s; }
+    .stat:nth-child(3) { animation-delay: .24s; }
+    .stat:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(35,83,139,.12); }
+    .systems-grid { perspective: 1200px; }
+    .system-card {
+      transform-style: preserve-3d;
+      opacity: 0; animation: cardEnter .75s cubic-bezier(.2,.8,.2,1) forwards;
+      will-change: transform, opacity;
+    }
+    .system-card:nth-child(1) { animation-delay: .04s; }
+    .system-card:nth-child(2) { animation-delay: .12s; }
+    .system-card:nth-child(3) { animation-delay: .20s; }
+    .system-card:nth-child(4) { animation-delay: .28s; }
+    .system-card:nth-child(5) { animation-delay: .36s; }
+    .system-card:nth-child(6) { animation-delay: .44s; }
+    .system-card::before {
+      content: ""; position: absolute; top: -80%; left: -65%; width: 45%; height: 260%;
+      transform: rotate(25deg); background: linear-gradient(90deg, transparent, rgba(255,255,255,.58), transparent);
+      transition: left .75s ease; pointer-events: none; z-index: 2;
+    }
+    .system-card:hover::before { left: 130%; }
+    .system-card::after { transition: transform .5s ease, opacity .5s ease; }
+    .system-card:hover::after { transform: scale(1.45); opacity: .58; }
+    .system-icon { transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease; animation: iconBob 4s ease-in-out infinite; }
+    .system-card:nth-child(2) .system-icon { animation-delay: -.7s; }
+    .system-card:nth-child(3) .system-icon { animation-delay: -1.4s; }
+    .system-card:nth-child(4) .system-icon { animation-delay: -2.1s; }
+    .system-card:nth-child(5) .system-icon { animation-delay: -2.8s; }
+    .system-card:nth-child(6) .system-icon { animation-delay: -3.5s; }
+    .system-card:hover .system-icon { transform: translateY(-5px) rotate(-7deg) scale(1.1); box-shadow: 0 10px 22px rgba(35,83,139,.13); }
+    .card-link { overflow: hidden; position: relative; }
+    .card-link span { display: inline-block; transition: transform .25s ease; }
+    .card-link:hover span { transform: translate(3px,-3px); }
+    .button-primary { background-size: 180% 180%; animation: buttonShimmer 6s ease infinite; }
+    .purpose-section { max-width: 1180px; margin: 0 auto; padding: 12px 22px 34px; }
+    .purpose-panel { position: relative; overflow: hidden; padding: 30px; border: 1px solid #d8e9f8; border-radius: 28px; background: linear-gradient(130deg, rgba(255,255,255,.94), rgba(232,246,255,.9)); box-shadow: var(--shadow); }
+    .purpose-panel::after { content: "✦"; position: absolute; right: 25px; top: 10px; font-size: 100px; line-height: 1; color: rgba(32,145,220,.07); animation: starTurn 18s linear infinite; pointer-events: none; }
+    .purpose-heading { max-width: 760px; margin-bottom: 22px; }
+    .purpose-heading p { color: var(--muted); font-size: 14px; line-height: 1.8; margin: 8px 0 0; }
+    .purpose-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; position: relative; z-index: 1; }
+    .purpose-item { padding: 17px; border: 1px solid #e0edf8; border-radius: 17px; background: rgba(255,255,255,.86); transition: transform .3s ease, box-shadow .3s ease; }
+    .purpose-item:hover { transform: translateY(-6px); box-shadow: 0 14px 28px rgba(35,83,139,.1); }
+    .purpose-item .purpose-icon { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: #e7f4ff; font-size: 21px; margin-bottom: 10px; }
+    .purpose-item h3 { margin: 0 0 7px; font-size: 14px; color: var(--navy); }
+    .purpose-item p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .purpose-note { margin-top: 17px; padding: 13px 15px; border-radius: 13px; color: #315c7d; background: rgba(226,243,255,.75); font-size: 12px; line-height: 1.7; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @keyframes ambientSpin { to { transform: rotate(360deg); } }
+    @keyframes visualGlow { 0%,100% { box-shadow: var(--shadow); } 50% { box-shadow: 0 20px 55px rgba(32,145,220,.17); } }
+    @keyframes corePulse { 0%,100% { box-shadow: 0 18px 40px rgba(23,105,210,.28); } 50% { box-shadow: 0 20px 48px rgba(32,185,214,.38); } }
+    @keyframes iconBob { 0%,100% { translate: 0 0; } 50% { translate: 0 -4px; } }
+    @keyframes cardEnter { from { opacity: 0; transform: translateY(24px) rotateX(5deg) scale(.975); } to { opacity: 1; transform: translateY(0) rotateX(0) scale(1); } }
+    @keyframes buttonShimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    @keyframes starTurn { to { transform: rotate(360deg); } }
+    @media (max-width: 900px) {
+      .purpose-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+
+      .hero { padding-top: 45px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 260px; }
+      .systems-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .info-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .topbar { padding: 10px 15px; }
+      .brand-mark { width: 42px; height: 42px; flex-basis: 42px; border-radius: 14px; }
+      .brand-name { font-size: 11px; }
+      .brand-sub { font-size: 9px; letter-spacing: 1px; }
+      .status-chip { padding: 8px; font-size: 0; gap: 0; }
+      .status-dot { width: 9px; height: 9px; }
+      .hero { padding: 38px 16px 18px; }
+      h1 { font-size: clamp(33px, 10vw, 45px); letter-spacing: -1.2px; }
+      .hero-copy { font-size: 14px; }
+      .hero-visual { min-height: 230px; border-radius: 24px; }
+      .visual-core { width: 116px; height: 116px; border-radius: 29px; }
+      .visual-core .monogram { font-size: 31px; }
+      .hero-visual::before { width: 190px; height: 190px; }
+      .hero-visual::after { width: 250px; height: 120px; }
+      .orbit-icon { width: 39px; height: 39px; border-radius: 13px; font-size: 19px; }
+      .stats { grid-template-columns: 1fr; gap: 9px; margin-top: 20px; }
+      .stat { padding: 12px 14px; }
+      .section { padding: 30px 16px 40px; }
+      .section-head { align-items: stretch; flex-direction: column; gap: 16px; }
+      .search-wrap { width: 100%; flex-basis: auto; }
+      .systems-grid { grid-template-columns: 1fr; gap: 13px; }
+      .purpose-section { padding: 8px 16px 25px; }
+      .purpose-panel { padding: 21px; }
+      .purpose-grid { grid-template-columns: 1fr; }
+      .system-card { padding: 19px; }
+      .system-card h3 { margin-top: 14px; }
+      .info-band { padding: 0 16px; margin-bottom: 36px; }
+      .info-inner { padding: 21px; }
+      .feature-list { grid-template-columns: 1fr 1fr; }
+      .feature { padding: 10px 8px; font-size: 11px; }
+      .hero-actions .button { flex: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="ambient" aria-hidden="true"></div>
 
-<div id="stars"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Về đầu trang">
+      <span class="brand-mark" aria-hidden="true">LD</span>
+      <span>
+        <span class="brand-name">TRƯỜNG THPT LÊ DUẨN</span>
+        <span class="brand-sub" style="display:block">CỔNG HỆ SINH THÁI SỐ</span>
+      </span>
+    </a>
+    <div class="top-actions">
+      <span class="status-chip" title="Đây là trạng thái của cổng giao diện, không phải kiểm tra trực tiếp từng dịch vụ">
+        <span class="status-dot" aria-hidden="true"></span>
+        CỔNG TRUY CẬP
+      </span>
+    </div>
+  </header>
 
-<!-- ================= TOP BAR ================= -->
-
-<header class="topbar">
-
-    <div class="brand">
-
-        <div class="brand-logo">
-            LD
-        </div>
-
+  <main id="top">
+    <section class="hero">
+      <div class="hero-grid">
         <div>
-            <div class="brand-title">
-                TRƯỜNG THPT LÊ DUẨN
-            </div>
-
-            <div class="brand-sub">
-                HỆ SINH THÁI SỐ
-            </div>
+          <span class="eyebrow"><span aria-hidden="true">✦</span> ONE SCHOOL · ONE DIGITAL SPACE</span>
+          <h1>Một điểm đến cho<br><span class="gradient-text">hệ sinh thái số</span></h1>
+          <p class="hero-copy">Kết nối các nền tảng học tập, dữ liệu và quản lý của Trường THPT Lê Duẩn trong một cổng truy cập tập trung — thuận tiện cho giáo viên, học sinh và cán bộ nhà trường.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#he-thong">Khám phá hệ thống <span aria-hidden="true">↘</span></a>
+            <button class="button button-secondary" type="button" id="showFavorites">♡ Hệ thống yêu thích</button>
+          </div>
         </div>
-
-    </div>
-
-    <div class="status">
-        <span class="status-dot"></span>
-        HỆ THỐNG TRỰC TUYẾN
-    </div>
-
-</header>
-
-
-<!-- ================= HERO ================= -->
-
-<main>
-
-<section class="hero">
-
-    <div class="hero-title">
-
-        <div class="small">
-            HỆ SINH THÁI SỐ
+        <div class="hero-visual" aria-label="Minh họa các nền tảng số kết nối quanh trung tâm trường học">
+          <span class="orbit-icon i1" aria-hidden="true">📚</span>
+          <span class="orbit-icon i2" aria-hidden="true">📊</span>
+          <span class="orbit-icon i3" aria-hidden="true">🗓️</span>
+          <span class="orbit-icon i4" aria-hidden="true">👩‍🏫</span>
+          <div class="visual-core">
+            <span class="monogram">LD</span>
+            <span>THPT LÊ DUẨN</span>
+            <span style="font-size:9px;letter-spacing:1.8px;opacity:.85">DIGITAL HUB</span>
+          </div>
+          <span class="hero-note">KẾT NỐI · CHIA SẺ · PHÁT TRIỂN</span>
         </div>
+      </div>
+      <div class="stats" aria-label="Tổng quan cổng truy cập">
+        <div class="stat"><span class="stat-icon" aria-hidden="true">🧭</span><span><strong>01</strong><span>Cổng truy cập tập trung</span></span></div>
+        <div class="stat"><span class="stat-icon" aria-hidden="true">🔗</span><span><strong id="systemCount">06</strong><span>Liên kết hệ thống</span></span></div>
+        <div class="stat"><span class="stat-icon" aria-hidden="true">📱</span><span><strong>24/7</strong><span>Truy cập qua trình duyệt*</span></span></div>
+      </div>
+    </section>
 
-        <h1>
-            THPT LÊ DUẨN
-        </h1>
-
-        <p>
-            Kết nối dữ liệu • Kết nối giáo viên • Kết nối học sinh
-        </p>
-
-    </div>
-
-
-    <!-- ================= ORBIT ================= -->
-
-    <div class="orbit-space" id="orbitSpace">
-
-        <div class="orbit one"></div>
-        <div class="orbit two"></div>
-        <div class="orbit three"></div>
-
-
-        <!-- CONNECTIONS -->
-
-        <div class="connection-layer">
-
-            <div class="connection"
-                 style="
-                 width:330px;
-                 left:50%;
-                 top:50%;
-                 transform:rotate(-90deg);
-                 ">
-            </div>
-
-            <div class="connection"
-                 style="
-                 width:320px;
-                 left:50%;
-                 top:50%;
-                 transform:rotate(-30deg);
-                 ">
-            </div>
-
-            <div class="connection"
-                 style="
-                 width:320px;
-                 left:50%;
-                 top:50%;
-                 transform:rotate(30deg);
-                 ">
-            </div>
-
-            <div class="connection"
-                 style="
-                 width:320px;
-                 left:50%;
-                 top:50%;
-                 transform:rotate(90deg);
-                 ">
-            </div>
-
-            <div class="connection"
-                 style="
-                 width:320px;
-                 left:50%;
-                 top:50%;
-                 transform:rotate(150deg);
-                 ">
-            </div>
-
-            <div class="connection"
-                 style="
-                 width:320px;
-                 left:50%;
-                 top:50%;
-                 transform:rotate(210deg);
-                 ">
-            </div>
-
+    <section class="purpose-section reveal" aria-labelledby="purposeTitle">
+      <div class="purpose-panel">
+        <div class="purpose-heading">
+          <span class="section-kicker">MỤC TIÊU & GIÁ TRỊ</span>
+          <h2 id="purposeTitle">Vì một môi trường giáo dục số kết nối</h2>
+          <p>Hệ sinh thái số Trường THPT Lê Duẩn được xây dựng nhằm tạo một điểm truy cập thống nhất, giúp giáo viên, học sinh và cán bộ nhà trường tìm đúng công cụ, đúng thông tin nhanh hơn; đồng thời thúc đẩy đổi mới phương pháp dạy học, quản lý và phối hợp trong toàn trường.</p>
         </div>
-
-
-        <!-- ================= CENTER ================= -->
-
-        <div class="center-core">
-
-            <div class="energy"></div>
-
-            <div class="core-outer"></div>
-
-            <div class="core">
-
-                <div class="core-logo">
-                    LD
-                </div>
-
-                <div class="core-school">
-                    THPT LÊ DUẨN
-                </div>
-
-                <div class="core-label">
-                    DIGITAL HUB
-                </div>
-
-            </div>
-
+        <div class="purpose-grid">
+          <article class="purpose-item"><span class="purpose-icon" aria-hidden="true">🧭</span><h3>Truy cập tập trung</h3><p>Gom các nền tảng thiết yếu về một giao diện chính, giảm thời gian tìm kiếm và hạn chế nhầm lẫn giữa các đường dẫn.</p></article>
+          <article class="purpose-item"><span class="purpose-icon" aria-hidden="true">📚</span><h3>Hỗ trợ dạy và học</h3><p>Kết nối thư viện số, thời khóa biểu và tra cứu kết quả học tập để hỗ trợ việc học tập, chuẩn bị bài và theo dõi tiến độ.</p></article>
+          <article class="purpose-item"><span class="purpose-icon" aria-hidden="true">🗂️</span><h3>Chia sẻ dữ liệu, tài liệu</h3><p>Tạo lối vào thuận tiện đến kho dữ liệu, biểu mẫu và văn bản phục vụ công tác chuyên môn, điều hành của nhà trường.</p></article>
+          <article class="purpose-item"><span class="purpose-icon" aria-hidden="true">🤝</span><h3>Tăng cường kết nối</h3><p>Lan tỏa thông tin chính thức, hoạt động học sinh và các cơ hội tham gia, sáng tạo trong cộng đồng trường học.</p></article>
         </div>
+        <div class="purpose-note"><strong>Định hướng phát triển:</strong> từng bước mở rộng thêm dịch vụ theo nhu cầu thực tế, ưu tiên giao diện dễ dùng trên máy tính và điện thoại, thông tin rõ ràng, an toàn dữ liệu và phân quyền theo từng hệ thống. Cổng chính là nơi điều hướng; tài khoản và quyền truy cập vẫn do từng nền tảng thành phần quản lý.</div>
+      </div>
+    </section>
 
-
-        <!-- ================= SATELLITES ================= -->
-
-        <a class="eco-card"
-           href="javascript:void(0)"
-           data-system="portal">
-
-            <span class="eco-number">
-                01
-            </span>
-
-            <div class="eco-icon">
-                🏫
-            </div>
-
-            <h3>
-                Cổng thông tin<br>
-                của trường
-            </h3>
-
-            <p>
-                Thông tin, tin tức, hoạt động
-                và các thông báo của nhà trường.
-            </p>
-
-        </a>
-
-
-        <a class="eco-card"
-           href="javascript:void(0)"
-           data-system="data">
-
-            <span class="eco-number">
-                02
-            </span>
-
-            <div class="eco-icon">
-                🗄️
-            </div>
-
-            <h3>
-                Kho dữ liệu<br>
-                dùng chung
-            </h3>
-
-            <p>
-                Kho tài liệu, biểu mẫu, dữ liệu
-                dùng chung cho cán bộ và giáo viên.
-            </p>
-
-        </a>
-
-
-        <a class="eco-card"
-           href="javascript:void(0)"
-           data-system="library">
-
-            <span class="eco-number">
-                03
-            </span>
-
-            <div class="eco-icon">
-                📚
-            </div>
-
-            <h3>
-                Thư viện<br>
-                số
-            </h3>
-
-            <p>
-                Tài liệu học tập, bài giảng,
-                học liệu và tài nguyên số.
-            </p>
-
-        </a>
-
-
-        <a class="eco-card"
-           href="javascript:void(0)"
-           data-system="score">
-
-            <span class="eco-number">
-                04
-            </span>
-
-            <div class="eco-icon">
-                📊
-            </div>
-
-            <h3>
-                Tra cứu điểm<br>
-                kiểm tra
-            </h3>
-
-            <p>
-                Tra cứu và quản lý thông tin
-                điểm kiểm tra học tập.
-            </p>
-
-        </a>
-
-
-        <a class="eco-card"
-           href="javascript:void(0)"
-           data-system="timetable">
-
-            <span class="eco-number">
-                05
-            </span>
-
-            <div class="eco-icon">
-                🗓️
-            </div>
-
-            <h3>
-                Xem<br>
-                thời khóa biểu
-            </h3>
-
-            <p>
-                Tra cứu TKB lớp, giáo viên
-                và toàn trường.
-            </p>
-
-        </a>
-
-
-        <a class="eco-card"
-           href="javascript:void(0)"
-           data-system="club">
-
-            <span class="eco-number">
-                06
-            </span>
-
-            <div class="eco-icon">
-                🚀
-            </div>
-
-            <h3>
-                Câu lạc bộ
-            </h3>
-
-            <p>
-                Không gian hoạt động, sáng tạo
-                và kết nối học sinh.
-            </p>
-
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- ================= SHARED ECOSYSTEM ================= -->
-
-<section class="shared-section">
-
-    <div class="section-heading">
-
-        <div class="tag">
-            ONE DIGITAL ECOSYSTEM
+    <section class="section reveal" id="he-thong">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">DIGITAL SERVICES</span>
+          <h2>Các hệ thống thành phần</h2>
+          <p class="section-desc">Sáu hệ thống được trình bày bằng thẻ trực quan có hiệu ứng ánh sáng, chuyển động khi xuất hiện và tương tác khi rê chuột. Chọn một hệ thống để mở trong tab mới; dùng tìm kiếm, bộ lọc hoặc dấu trái tim để truy cập nhanh dịch vụ thường dùng.</p>
         </div>
+        <label class="search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input class="search" id="systemSearch" type="search" placeholder="Tìm hệ thống..." autocomplete="off" aria-label="Tìm kiếm hệ thống">
+        </label>
+      </div>
 
-        <h2>
-            Hệ sinh thái dùng chung
-        </h2>
+      <div class="filters" role="group" aria-label="Lọc hệ thống">
+        <button class="filter" type="button" data-filter="all" aria-pressed="true">Tất cả hệ thống</button>
+        <button class="filter" type="button" data-filter="teacher" aria-pressed="false">Giáo viên & quản lý</button>
+        <button class="filter" type="button" data-filter="learning" aria-pressed="false">Học tập & học sinh</button>
+        <button class="filter" type="button" data-filter="community" aria-pressed="false">Kết nối & hoạt động</button>
+      </div>
 
-        <p>
-            Một nền tảng kết nối các hệ thống số của
-            THPT Lê Duẩn, hướng tới việc dùng chung
-            dữ liệu, tài nguyên và dịch vụ số trong toàn trường.
-        </p>
+      <div class="systems-grid" id="systemsGrid">
+        <article class="system-card" data-id="portal" data-category="community" style="--tint:#e3f4ff">
+          <div class="card-top"><span class="system-icon" aria-hidden="true">🏫</span><span class="system-number">01 / PORTAL</span></div>
+          <h3>Cổng thông tin nhà trường</h3>
+          <p>Tin tức, thông báo, hoạt động và thông tin chính thức của nhà trường.</p>
+          <div class="card-meta"><span class="category-tag">Thông tin</span><button class="favorite" type="button" aria-label="Thêm Cổng thông tin nhà trường vào yêu thích" aria-pressed="false">♡</button></div>
+          <a class="card-link" href="https://thpttanhung.giaoductayninh.vn/" target="_blank" rel="noopener noreferrer">Truy cập hệ thống <span aria-hidden="true">↗</span></a>
+        </article>
 
-    </div>
+        <article class="system-card" data-id="data" data-category="teacher" style="--tint:#e8f0ff">
+          <div class="card-top"><span class="system-icon" aria-hidden="true">🗄️</span><span class="system-number">02 / DATA</span></div>
+          <h3>Kho dữ liệu dùng chung</h3>
+          <p>Tra cứu tài liệu, biểu mẫu, văn bản triển khai và tài nguyên phục vụ công việc.</p>
+          <div class="card-meta"><span class="category-tag">Dữ liệu & hồ sơ</span><button class="favorite" type="button" aria-label="Thêm Kho dữ liệu dùng chung vào yêu thích" aria-pressed="false">♡</button></div>
+          <a class="card-link" href="https://thptleduantayninh.github.io/trangchu/" target="_blank" rel="noopener noreferrer">Truy cập hệ thống <span aria-hidden="true">↗</span></a>
+        </article>
 
+        <article class="system-card" data-id="library" data-category="learning" style="--tint:#e5f8f1">
+          <div class="card-top"><span class="system-icon" aria-hidden="true">📚</span><span class="system-number">03 / LIBRARY</span></div>
+          <h3>Thư viện số</h3>
+          <p>Không gian tìm kiếm tài liệu học tập, bài giảng, học liệu và tài nguyên số.</p>
+          <div class="card-meta"><span class="category-tag">Học liệu</span><button class="favorite" type="button" aria-label="Thêm Thư viện số vào yêu thích" aria-pressed="false">♡</button></div>
+          <a class="card-link" href="https://sites.google.com/view/khohlstanhung/home" target="_blank" rel="noopener noreferrer">Truy cập hệ thống <span aria-hidden="true">↗</span></a>
+        </article>
 
-    <div class="hub-grid">
+        <article class="system-card" data-id="score" data-category="learning" style="--tint:#fff1dc">
+          <div class="card-top"><span class="system-icon" aria-hidden="true">📊</span><span class="system-number">04 / RESULTS</span></div>
+          <h3>Tra cứu điểm kiểm tra</h3>
+          <p>Truy cập hệ thống tra cứu kết quả kiểm tra học tập theo hướng dẫn của nhà trường.</p>
+          <div class="card-meta"><span class="category-tag">Kết quả học tập</span><button class="favorite" type="button" aria-label="Thêm Tra cứu điểm kiểm tra vào yêu thích" aria-pressed="false">♡</button></div>
+          <a class="card-link" href="https://thptleduantayninh.github.io/tracuudiem/" target="_blank" rel="noopener noreferrer">Truy cập hệ thống <span aria-hidden="true">↗</span></a>
+        </article>
 
-        <div class="hub-card">
+        <article class="system-card" data-id="timetable" data-category="teacher" style="--tint:#f0eaff">
+          <div class="card-top"><span class="system-icon" aria-hidden="true">🗓️</span><span class="system-number">05 / TIMETABLE</span></div>
+          <h3>Thời khóa biểu</h3>
+          <p>Tra cứu thời khóa biểu lớp, giáo viên và lịch học của toàn trường.</p>
+          <div class="card-meta"><span class="category-tag">Lịch dạy & học</span><button class="favorite" type="button" aria-label="Thêm Thời khóa biểu vào yêu thích" aria-pressed="false">♡</button></div>
+          <a class="card-link" href="https://thaythienc3.github.io/thoikhoabieu/" target="_blank" rel="noopener noreferrer">Truy cập hệ thống <span aria-hidden="true">↗</span></a>
+        </article>
 
-            <div class="hub-icon">
-                🌐
-            </div>
+        <article class="system-card" data-id="club" data-category="community" style="--tint:#ffe9ef">
+          <div class="card-top"><span class="system-icon" aria-hidden="true">🚀</span><span class="system-number">06 / CLUB</span></div>
+          <h3>Câu lạc bộ</h3>
+          <p>Không gian hoạt động, sáng tạo và kết nối học sinh thông qua các hoạt động số.</p>
+          <div class="card-meta"><span class="category-tag">Hoạt động học sinh</span><button class="favorite" type="button" aria-label="Thêm Câu lạc bộ vào yêu thích" aria-pressed="false">♡</button></div>
+          <a class="card-link" href="https://sites.google.com/view/khohlstanhung/home" target="_blank" rel="noopener noreferrer">Truy cập hệ thống <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+      <div class="empty-state" id="emptyState" role="status"><span aria-hidden="true" style="font-size:28px">🔎</span><strong>Chưa tìm thấy hệ thống phù hợp</strong><span>Thử từ khóa khác hoặc chọn bộ lọc “Tất cả hệ thống”.</span></div>
+    </section>
 
-            <h3>
-                Dữ liệu dùng chung
-            </h3>
-
-            <p>
-                Các hệ thống được tổ chức theo hướng
-                liên kết dữ liệu, hạn chế nhập liệu lặp lại
-                và tạo một không gian số thống nhất cho nhà trường.
-            </p>
-
-            <div class="hub-list">
-
-                <div class="hub-item">
-                    👨‍🏫 Giáo viên
-                </div>
-
-                <div class="hub-item">
-                    👨‍🎓 Học sinh
-                </div>
-
-                <div class="hub-item">
-                    📑 Hồ sơ – biểu mẫu
-                </div>
-
-                <div class="hub-item">
-                    📚 Học liệu số
-                </div>
-
-            </div>
-
+    <section class="info-band reveal" aria-labelledby="sharedTitle">
+      <div class="info-inner">
+        <div>
+          <span class="section-kicker">CONNECTED SCHOOL</span>
+          <h2 id="sharedTitle">Một cổng vào, nhiều tiện ích</h2>
+          <p>Cổng này giúp người dùng truy cập nhanh các dịch vụ số hiện có. Mỗi hệ thống thành phần vẫn vận hành theo nền tảng và quy định riêng; quyền truy cập dữ liệu phụ thuộc vào chính hệ thống đó.</p>
         </div>
-
-
-        <div class="hub-card">
-
-            <div class="hub-icon">
-                ⚡
-            </div>
-
-            <h3>
-                Quản trị số thông minh
-            </h3>
-
-            <p>
-                Từng hệ thống đóng vai trò như một vệ tinh
-                chuyên biệt nhưng được kết nối về một trung tâm
-                số chung của THPT Lê Duẩn.
-            </p>
-
-            <div class="hub-list">
-
-                <div class="hub-item">
-                    🔐 Phân quyền
-                </div>
-
-                <div class="hub-item">
-                    🔄 Đồng bộ
-                </div>
-
-                <div class="hub-item">
-                    📈 Thống kê
-                </div>
-
-                <div class="hub-item">
-                    ☁️ Trực tuyến
-                </div>
-
-            </div>
-
+        <div class="feature-list">
+          <div class="feature"><span aria-hidden="true">🔎</span> Tìm kiếm nhanh</div>
+          <div class="feature"><span aria-hidden="true">📱</span> Tương thích di động</div>
+          <div class="feature"><span aria-hidden="true">🔗</span> Truy cập tập trung</div>
+          <div class="feature"><span aria-hidden="true">🧩</span> Dễ bổ sung hệ thống</div>
         </div>
+      </div>
+    </section>
+  </main>
 
-    </div>
+  <footer>
+    <strong>TRƯỜNG THPT LÊ DUẨN · HỆ SINH THÁI SỐ</strong>
+    <p>Bản quyền thuộc về Thầy Thiện - Trường THPT Lê Duẩn</p>
+    <p>*Khả năng truy cập phụ thuộc vào kết nối Internet và tình trạng của từng dịch vụ thành phần.</p>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-</section>
+  <script>
+    (() => {
+      "use strict";
 
-</main>
+      const cards = Array.from(document.querySelectorAll(".system-card"));
+      const searchInput = document.getElementById("systemSearch");
+      const filterButtons = Array.from(document.querySelectorAll(".filter"));
+      const emptyState = document.getElementById("emptyState");
+      const showFavoritesButton = document.getElementById("showFavorites");
+      const toast = document.getElementById("toast");
 
+      let activeFilter = "all";
+      let favoritesOnly = false;
+      let toastTimer = null;
 
-<!-- ================= FOOTER ================= -->
-
-<footer>
-
-    <div>
-        <strong>
-            THPT LÊ DUẨN
-        </strong>
-        • HỆ SINH THÁI SỐ
-    </div>
-
-    <p>
-        Bản quyền thuộc về Thầy Thiện - Trường THPT Lê Duẩn
-    </p>
-
-</footer>
-
-
-<!-- ================= MODAL ================= -->
-
-<div class="modal" id="systemModal">
-
-    <div class="modal-box">
-
-        <div class="modal-icon" id="modalIcon">
-            🌐
-        </div>
-
-        <h2 id="modalTitle">
-            Hệ thống
-        </h2>
-
-        <p id="modalDescription">
-            Đang mở hệ thống...
-        </p>
-
-        <div class="modal-actions">
-
-            <a
-                id="openSystemButton"
-                class="btn btn-primary"
-                href="#"
-                target="_blank"
-                rel="noopener"
-            >
-                🚀 Truy cập hệ thống
-            </a>
-
-            <button
-                class="btn btn-close"
-                onclick="closeModal()"
-            >
-                Đóng
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<script>
-
-/* =====================================================
-   CẤU HÌNH CÁC HỆ THỐNG
-===================================================== */
-
-const SYSTEM_LINKS = {
-    portal: {
-        title: "Cổng thông tin của trường",
-        icon: "🏫",
-        description: "Cổng thông tin chính thức của THPT Lê Duẩn.",
-        url: "https://thpttanhung.giaoductayninh.vn/" // Đã cập nhật https
-    },
-    data: {
-        title: "Kho dữ liệu dùng chung",
-        icon: "🗄️",
-        description: "Kho dữ liệu và tài nguyên dùng chung của nhà trường.",
-        url: "https://thptleduantayninh.github.io/trangchu/"
-    },
-    library: {
-        title: "Thư viện số",
-        icon: "📚",
-        description: "Thư viện học liệu và tài nguyên số của THPT Lê Duẩn.",
-        url: "https://sites.google.com/view/khohlstanhung/home"
-    },
-    score: {
-        title: "Tra cứu điểm kiểm tra",
-        icon: "📊",
-        description: "Hệ thống tra cứu thông tin điểm kiểm tra học tập.",
-        url: "https://thptleduantayninh.github.io/tracuudiem/"
-    },
-    timetable: {
-        title: "Xem thời khóa biểu",
-        icon: "🗓️",
-        description: "Tra cứu thời khóa biểu lớp, giáo viên và toàn trường.",
-        url: "https://thaythienc3.github.io/thoikhoabieu/"
-    },
-    club: {
-        title: "Câu lạc bộ",
-        icon: "🚀",
-        description: "Không gian hoạt động, sáng tạo và kết nối học sinh.",
-        url: "https://sites.google.com/view/khohlstanhung/home" // Tránh cuộn trang khi chưa có link
-    }
-};
-
-
-/* =====================================================
-   TẠO SAO NỀN
-===================================================== */
-
-const starsContainer =
-    document.getElementById("stars");
-
-for(let i=0;i<180;i++){
-
-    const star =
-        document.createElement("div");
-
-    star.className="star";
-
-    star.style.left =
-        Math.random()*100+"%";
-
-    star.style.top =
-        Math.random()*100+"%";
-
-    const size =
-        Math.random()*2+1;
-
-    star.style.width=size+"px";
-    star.style.height=size+"px";
-
-    star.style.animationDelay =
-        Math.random()*4+"s";
-
-    starsContainer.appendChild(star);
-}
-
-
-/* =====================================================
-   ORBIT ENGINE
-===================================================== */
-
-const satellites =
-    document.querySelectorAll(".eco-card");
-
-const satelliteData=[];
-
-const totalSatellites =
-    satellites.length;
-
-
-/*
-    Bán kính quỹ đạo
-*/
-
-const ORBIT_RADIUS_X = 360;
-const ORBIT_RADIUS_Y = 235;
-const DEPTH = 180;
-
-
-/*
-    Tốc độ quay
-    Có thể tăng/giảm giá trị này.
-*/
-
-const ORBIT_SPEED = 0.000320;
-
-
-let lastFrame =
-    performance.now();
-
-
-let satelliteHover=false;
-
-
-/* khởi tạo */
-
-satellites.forEach((card,index)=>{
-
-    satelliteData.push({
-
-        card:card,
-
-        angle:
-            (Math.PI*2/totalSatellites)*index,
-
-        speed:
-            ORBIT_SPEED*
-            (0.94+index*0.018)
-
-    });
-
-
-    card.addEventListener(
-        "mouseenter",
-        ()=>{
-            satelliteHover=true;
+      // Lưu mục yêu thích trên trình duyệt hiện tại; nếu bộ nhớ bị chặn, website vẫn hoạt động.
+      const storage = (() => {
+        try {
+          const key = "__ld_portal_test__";
+          window.localStorage.setItem(key, "1");
+          window.localStorage.removeItem(key);
+          return window.localStorage;
+        } catch (_) {
+          return null;
         }
-    );
+      })();
 
+      let favorites = new Set();
+      if (storage) {
+        try {
+          const saved = JSON.parse(storage.getItem("ld-portal-favorites") || "[]");
+          if (Array.isArray(saved)) favorites = new Set(saved.filter(id => typeof id === "string"));
+        } catch (_) { favorites = new Set(); }
+      }
 
-    card.addEventListener(
-        "mouseleave",
-        ()=>{
-            satelliteHover=false;
+      function notify(message) {
+        toast.textContent = message;
+        toast.classList.add("show");
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2400);
+      }
+
+      function saveFavorites() {
+        if (!storage) {
+          notify("Trình duyệt không cho phép lưu yêu thích; thay đổi chỉ có hiệu lực trong phiên này.");
+          return;
         }
-    );
+        try {
+          storage.setItem("ld-portal-favorites", JSON.stringify(Array.from(favorites)));
+        } catch (_) {
+          notify("Không thể lưu yêu thích trên trình duyệt này.");
+        }
+      }
 
-});
+      function syncFavoriteButtons() {
+        cards.forEach(card => {
+          const id = card.dataset.id;
+          const button = card.querySelector(".favorite");
+          const selected = favorites.has(id);
+          button.setAttribute("aria-pressed", String(selected));
+          button.textContent = selected ? "♥" : "♡";
+          button.setAttribute("aria-label", (selected ? "Bỏ " : "Thêm ") + card.querySelector("h3").textContent + " " + (selected ? "khỏi" : "vào") + " yêu thích");
+        });
+        showFavoritesButton.textContent = favoritesOnly ? "♥ Đang xem yêu thích" : "♡ Hệ thống yêu thích";
+        showFavoritesButton.setAttribute("aria-pressed", String(favoritesOnly));
+      }
 
+      function applyFilters() {
+        const query = searchInput.value.trim().toLocaleLowerCase("vi");
+        let visibleCount = 0;
 
-/* =====================================================
-   RENDER SATELLITES
-===================================================== */
-
-function renderSatellites(){
-
-    satelliteData.forEach(item=>{
-
-        const card =
-            item.card;
-
-        const angle =
-            item.angle;
-
-
-        /*
-            X = ngang
-            Y = dọc
-            Z = chiều sâu
-        */
-
-        const x =
-            Math.cos(angle)*
-            ORBIT_RADIUS_X;
-
-
-        const y =
-            Math.sin(angle)*
-            ORBIT_RADIUS_Y;
-
-
-        const z =
-            Math.sin(angle)*
-            DEPTH;
-
-
-        /*
-            Card phía trước lớn hơn.
-        */
-
-        const depthRatio =
-            (z+DEPTH)/
-            (DEPTH*2);
-
-
-        const scale =
-            0.78+
-            depthRatio*0.28;
-
-
-        const brightness =
-            0.76+
-            depthRatio*0.24;
-
-
-        const zIndex =
-            Math.round(100+z);
-
-
-        card.style.transform =
-            `translate3d(
-                ${x}px,
-                ${y}px,
-                ${z}px
-            ) scale(${scale})`;
-
-
-        card.style.zIndex =
-            zIndex;
-
-
-        card.style.filter =
-            `brightness(${brightness})`;
-
-    });
-
-}
-
-
-/* =====================================================
-   ANIMATION LOOP
-===================================================== */
-
-function animateSatellites(now){
-
-    const delta =
-        now-lastFrame;
-
-    lastFrame=now;
-
-
-    /*
-        Khi rê chuột vào vệ tinh:
-        tạm dừng quỹ đạo.
-    */
-
-    if(!satelliteHover){
-
-        satelliteData.forEach(item=>{
-
-            item.angle +=
-                item.speed*delta;
-
+        cards.forEach(card => {
+          const categoryMatches = activeFilter === "all" || card.dataset.category === activeFilter;
+          const textMatches = (card.textContent || "").toLocaleLowerCase("vi").includes(query);
+          const favoriteMatches = !favoritesOnly || favorites.has(card.dataset.id);
+          const visible = categoryMatches && textMatches && favoriteMatches;
+          card.hidden = !visible;
+          if (visible) visibleCount++;
         });
 
-    }
+        emptyState.style.display = visibleCount ? "none" : "block";
+        document.getElementById("systemCount").textContent = String(cards.length).padStart(2, "0");
+      }
 
+      filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          activeFilter = button.dataset.filter;
+          filterButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+          applyFilters();
+        });
+      });
 
-    renderSatellites();
+      searchInput.addEventListener("input", applyFilters);
 
+      cards.forEach(card => {
+        const favoriteButton = card.querySelector(".favorite");
+        favoriteButton.addEventListener("click", () => {
+          const id = card.dataset.id;
+          if (favorites.has(id)) {
+            favorites.delete(id);
+            notify("Đã bỏ khỏi danh sách yêu thích.");
+          } else {
+            favorites.add(id);
+            notify("Đã thêm vào danh sách yêu thích.");
+          }
+          saveFavorites();
+          syncFavoriteButtons();
+          applyFilters();
+        });
+      });
 
-    requestAnimationFrame(
-        animateSatellites
-    );
-
-}
-
-
-requestAnimationFrame(
-    animateSatellites
-);
-
-
-/* =====================================================
-   CLICK VỆ TINH
-===================================================== */
-
-satellites.forEach(card=>{
-
-    card.addEventListener(
-        "click",
-        ()=>{
-
-            const system =
-                card.dataset.system;
-
-            openSystem(system);
-
-
-            card.classList.add(
-                "selected"
-            );
-
-
-            setTimeout(()=>{
-
-                card.classList.remove(
-                    "selected"
-                );
-
-            },700);
-
+      showFavoritesButton.addEventListener("click", () => {
+        favoritesOnly = !favoritesOnly;
+        if (favoritesOnly) {
+          activeFilter = "all";
+          filterButtons.forEach(item => item.setAttribute("aria-pressed", String(item.dataset.filter === "all")));
         }
-    );
-
-});
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-const modal =
-    document.getElementById(
-        "systemModal"
-    );
-
-
-const modalIcon =
-    document.getElementById(
-        "modalIcon"
-    );
-
-
-const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
-
-
-const modalDescription =
-    document.getElementById(
-        "modalDescription"
-    );
-
-
-const openButton =
-    document.getElementById(
-        "openSystemButton"
-    );
-
-
-function openSystem(id){
-
-    const system =
-        SYSTEM_LINKS[id];
-
-
-    if(!system){
-        return;
-    }
-
-
-    modalIcon.textContent =
-        system.icon;
-
-
-    modalTitle.textContent =
-        system.title;
-
-
-    modalDescription.textContent =
-        system.description;
-
-
-    openButton.href =
-        system.url;
-
-
-    /*
-        Nếu chưa có URL,
-        nút sẽ báo chưa cấu hình.
-    */
-
-    if(system.url==="#" ){
-
-        openButton.textContent =
-            "⚙ Chưa cấu hình liên kết";
-
-        openButton.style.opacity=".55";
-
-        openButton.style.pointerEvents=
-            "none";
-
-    }else{
-
-        openButton.textContent =
-            "🚀 Truy cập hệ thống";
-
-        openButton.style.opacity="1";
-
-        openButton.style.pointerEvents=
-            "auto";
-
-    }
-
-
-    modal.classList.add("show");
-
-}
-
-
-function closeModal(){
-
-    modal.classList.remove(
-        "show"
-    );
-
-}
-
-
-/* =====================================================
-   CLICK RA NGOÀI MODAL
-===================================================== */
-
-modal.addEventListener(
-    "click",
-    function(e){
-
-        if(e.target===modal){
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   PHÍM ESC
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    function(e){
-
-        if(e.key==="Escape"){
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   ĐIỀU CHỈNH TỐC ĐỘ THEO THIẾT BỊ
-===================================================== */
-
-function responsiveOrbit(){
-
-    const width =
-        window.innerWidth;
-
-
-    /*
-        Màn hình nhỏ:
-        thu nhỏ bán kính quỹ đạo.
-    */
-
-    if(width<650){
-
-        document.documentElement
-            .style
-            .setProperty(
-                "--orbit-scale",
-                ".72"
-            );
-
-    }
-
-    else if(width<900){
-
-        document.documentElement
-            .style
-            .setProperty(
-                "--orbit-scale",
-                ".88"
-            );
-
-    }
-
-    else{
-
-        document.documentElement
-            .style
-            .setProperty(
-                "--orbit-scale",
-                "1"
-            );
-
-    }
-
-}
-
-
-window.addEventListener(
-    "resize",
-    responsiveOrbit
-);
-
-
-responsiveOrbit();
-
-</script>
-
+        syncFavoriteButtons();
+        applyFilters();
+        document.getElementById("he-thong").scrollIntoView({ behavior: "smooth", block: "start" });
+        if (favoritesOnly && favorites.size === 0) notify("Thầy/cô chưa lưu hệ thống yêu thích nào.");
+      });
+
+      // Chọn lại một bộ lọc sẽ thoát chế độ chỉ xem yêu thích.
+      filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          favoritesOnly = false;
+          syncFavoriteButtons();
+          applyFilters();
+        });
+      });
+
+      // Hiệu ứng xuất hiện mượt khi cuộn tới từng khu vực; tự tắt nếu người dùng giảm chuyển động.
+      const revealItems = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const revealObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach(item => revealObserver.observe(item));
+      } else {
+        revealItems.forEach(item => item.classList.add('is-visible'));
+      }
+
+      // Không báo rằng các dịch vụ đang trực tuyến: trang tĩnh không kiểm tra trạng thái máy chủ.
+      syncFavoriteButtons();
+      applyFilters();
+    })();
+  </script>
 </body>
 </html>
